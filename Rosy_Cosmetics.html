@@ -323,12 +323,14 @@
       const FLIP_DURATION = 800;
 
       // EDITE AQUI: até 10 avaliações reais (nome, foto, estrelas, texto, data opcional)
+      // Use crases (`texto`) em vez de aspas — assim, se colar um texto com quebra de
+      // linha por engano, a página NÃO quebra (aspas duplas/simples quebram com quebra de linha).
       const avaliacoesRosy = [
-        { nome: "Cliente 1", foto: "assets/rosy/foto1.webp", estrelas: 5, texto: "Texto real da avaliação da cliente 1...", data: "há 2 semanas" },
-        { nome: "Cliente 2", foto: "assets/rosy/foto2.webp", estrelas: 5, texto: "Texto real da avaliação da cliente 2...", data: "há 1 mês" },
-        { nome: "Cliente 3", foto: "assets/rosy/foto3.webp", estrelas: 5, texto: "Texto real da avaliação da cliente 3...", data: "há 1 mês" },
-        { nome: "Cliente 4", foto: "assets/rosy/foto4.webp", estrelas: 5, texto: "Texto real da avaliação da cliente 4...", data: "há 2 meses" },
-        { nome: "Cliente 5", foto: "assets/rosy/foto5.webp", estrelas: 5, texto: "Texto real da avaliação da cliente 5...", data: "há 3 meses" }
+        { nome: `Clara Duarte`, foto: `assets/rosy/foto1.webp`, estrelas: 5, texto: `Uma loja incrível e completa, com variedades de produtos, atendimento incrível, indico muito e escolho sempre`, data: `há 2 semanas` },
+        { nome: `keti grasieli miranda`, foto: `assets/rosy/foto2.webp`, estrelas: 5, texto: `Hoje minha recomendação vai pra Rosy Cosméticos, uma loja diferenciada com atendimento de primeira.`, data: `há 1 mês` },
+        { nome: `Caroline Monteiro`, foto: `assets/rosy/foto3.webp`, estrelas: 5, texto: `Uma loja com bastante opção, muito boa!`, data: `há 1 mês` },
+        { nome: `Viviane Mariano Pedroso`, foto: `assets/rosy/foto4.webp`, estrelas: 5, texto: `Ótimo atendimento e muitas opções de escolha. Atendimento nota 10`, data: `há 2 meses` },
+        { nome: `GEOZANIA BRITO REZENDE`, foto: `assets/rosy/foto5.webp`, estrelas: 5, texto: `Loja maravilhosa recomendo 🥰🥰🥰🥰 produtos 👍👍👍👍👍 ótimos`, data: `há 3 meses` }
       ];
 
       if (!window.matchMedia('(max-width: 768px)').matches) return;
@@ -397,4 +399,3 @@
   </script>
 </body>
 </html>
-
