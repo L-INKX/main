@@ -98,20 +98,89 @@
     .btn-catalogo.animate-in { transition-delay: 1.00s; }
     .btn-avaliar.animate-in { transition-delay: 1.15s; }
     .review-area.animate-in { transition-delay: 1.35s; }
-    .logo.animate-in { perspective: 900px; }
-    .logo.animate-in img { transform-origin: center center; transform-style: preserve-3d; will-change: transform; animation: logoFloat 5.8s ease-in-out infinite; animation-delay: 1.5s; }
+    .logo.animate-in .rosy-face-front img { transform-origin: center center; transform-style: preserve-3d; will-change: transform; animation: logoFloat 5.8s ease-in-out infinite; animation-delay: 1.5s; }
   }
   @keyframes logoFloat {
     0% { transform: rotateY(-5.5deg) translateY(0); }
     50% { transform: rotateY(5.5deg) translateY(-5px); }
     100% { transform: rotateY(-5.5deg) translateY(0); }
   }
+
+  /* ===== Rosy Flip 3D — Logo/Avaliações (isolado, aditivo) ===== */
+  .rosy-flip-container { width: 100%; }
+  .rosy-face-back { display: none; }
+  @media (max-width: 768px) {
+    .rosy-flip-container {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      height: var(--rosy-flip-height, 190px);
+      perspective: 900px;
+    }
+    .rosy-flip-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.45, 0.05, 0.15, 1);
+      will-change: transform;
+    }
+    .rosy-flip-inner.is-flipped { transform: rotateY(180deg); }
+    .rosy-face-front, .rosy-face-back {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .rosy-face-back { display: flex; transform: rotateY(180deg); }
+    .rosy-face-front img { height: 100%; width: auto; max-width: 100%; object-fit: contain; }
+    .rosy-review-card {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(160deg, #B02220 0%, #c92e2b 100%);
+      border-radius: 24px;
+      padding: 16px 18px 14px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.07) inset;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: #FAEEDE;
+      overflow: hidden;
+    }
+    .rosy-review-header { display: flex; align-items: center; gap: 10px; }
+    .rosy-review-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid #FAEEDE; background: #FAEEDE; flex-shrink: 0; }
+    .rosy-review-name-wrap { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .rosy-review-name { font-size: 14px; font-weight: 700; color: #FAEEDE; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .rosy-review-stars { font-size: 12.5px; letter-spacing: 2px; color: #FFD400; line-height: 1; }
+    .rosy-review-text { font-size: 13px; line-height: 1.4; color: #FAEEDE; opacity: 0.95; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+    .rosy-review-footer { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 6px; border-top: 1px solid rgba(250, 238, 222, 0.2); }
+    .rosy-review-google { display: flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 600; color: rgba(250, 238, 222, 0.85); letter-spacing: 0.2px; }
+    .rosy-review-google svg { width: 11px; height: 11px; }
+    .rosy-review-date { font-size: 10px; color: rgba(250, 238, 222, 0.65); white-space: nowrap; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rosy-flip-inner { transition: none !important; }
+  }
 </style>
 </head>
 <body>
   <div class="container">
     <div class="logo">
-      <img src="assets/rosy2.png" alt="logo Rosy Cosméticos" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\\'font-size:28px;font-weight:800;letter-spacing:-0.5px;padding:20px;\\'>Rosy Cosméticos</div>';">
+      <div class="rosy-flip-container">
+        <div class="rosy-flip-inner" id="rosyFlipInner">
+          <div class="rosy-face-front">
+            <img src="assets/rosy2.png" alt="logo Rosy Cosméticos" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\\'font-size:28px;font-weight:800;letter-spacing:-0.5px;padding:20px;\\'>Rosy Cosméticos</div>';">
+          </div>
+          <div class="rosy-face-back">
+            <div class="rosy-review-card" id="rosyReviewCard"></div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="buttons">
       <a class="btn-whatsapp" href="https://wa.me/5519999753788?text=Ol%C3%A1%21%0AEncontrei%20a%20loja%20e%20gostaria%20de%20conhecer%20os%20produtos%20e%20novidades%20dispon%C3%ADveis.%0APoderiam%20me%20ajudar%3F" target="_blank" rel="noopener noreferrer">
@@ -247,6 +316,80 @@
       modal.addEventListener('click', (e) => { if (e.target === modal) goToReview(); });
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('is-open')) closeReviewModal(); });
     })();
+    (() => {
+      // ===== Rosy Flip 3D — Logo ⇄ Avaliações do Google (apenas mobile) =====
+      const LOGO_DURATION = 6000;
+      const REVIEW_DURATION = 5000;
+      const FLIP_DURATION = 800;
+
+      // EDITE AQUI: até 10 avaliações reais (nome, foto, estrelas, texto, data opcional)
+      const avaliacoesRosy = [
+        { nome: "Cliente 1", foto: "assets/rosy/foto1.webp", estrelas: 5, texto: "Texto real da avaliação da cliente 1...", data: "há 2 semanas" },
+        { nome: "Cliente 2", foto: "assets/rosy/foto2.webp", estrelas: 5, texto: "Texto real da avaliação da cliente 2...", data: "há 1 mês" },
+        { nome: "Cliente 3", foto: "assets/rosy/foto3.webp", estrelas: 5, texto: "Texto real da avaliação da cliente 3...", data: "há 1 mês" },
+        { nome: "Cliente 4", foto: "assets/rosy/foto4.webp", estrelas: 5, texto: "Texto real da avaliação da cliente 4...", data: "há 2 meses" },
+        { nome: "Cliente 5", foto: "assets/rosy/foto5.webp", estrelas: 5, texto: "Texto real da avaliação da cliente 5...", data: "há 3 meses" }
+      ];
+
+      if (!window.matchMedia('(max-width: 768px)').matches) return;
+      const inner = document.getElementById('rosyFlipInner');
+      const card = document.getElementById('rosyReviewCard');
+      if (!inner || !card || avaliacoesRosy.length === 0) return;
+
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduceMotion) return; // mantém apenas a logo estática, sem flip automático
+
+      avaliacoesRosy.forEach(item => { const img = new Image(); img.src = item.foto; });
+
+      const googleIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>';
+
+      function renderReviewCard(item) {
+        const estrelas = '★'.repeat(item.estrelas) + '☆'.repeat(Math.max(0, 5 - item.estrelas));
+        card.innerHTML =
+          '<div class="rosy-review-header">' +
+            '<img class="rosy-review-avatar" src="' + item.foto + '" alt="" onerror="this.style.visibility=\'hidden\'">' +
+            '<div class="rosy-review-name-wrap">' +
+              '<span class="rosy-review-name">' + item.nome + '</span>' +
+              '<span class="rosy-review-stars">' + estrelas + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<p class="rosy-review-text">' + item.texto + '</p>' +
+          '<div class="rosy-review-footer">' +
+            '<span class="rosy-review-google">' + googleIcon + ' Google</span>' +
+            (item.data ? '<span class="rosy-review-date">' + item.data + '</span>' : '') +
+          '</div>';
+      }
+
+      let index = 0;
+      let cycleTimer = null;
+      let paused = false;
+      let showingLogo = true;
+
+      function scheduleNext(delay, fn) {
+        clearTimeout(cycleTimer);
+        cycleTimer = setTimeout(() => { if (!paused) fn(); else scheduleNext(300, fn); }, delay);
+      }
+
+      function flipToReview() {
+        index = (index + 1) % avaliacoesRosy.length;
+        renderReviewCard(avaliacoesRosy[index]); // troca de conteúdo ocorre enquanto o card está oculto (durante o flip)
+        inner.classList.add('is-flipped');
+        showingLogo = false;
+        scheduleNext(FLIP_DURATION + REVIEW_DURATION, flipToLogo);
+      }
+
+      function flipToLogo() {
+        inner.classList.remove('is-flipped');
+        showingLogo = true;
+        scheduleNext(FLIP_DURATION + LOGO_DURATION, flipToReview);
+      }
+
+      document.addEventListener('visibilitychange', () => { paused = document.hidden; });
+
+      renderReviewCard(avaliacoesRosy[index]);
+      scheduleNext(LOGO_DURATION, flipToReview);
+    })();
+
     document.querySelectorAll('a[class*="btn"]').forEach(btn => {
       btn.addEventListener('touchstart', () => { btn.style.opacity = '0.9'; }, { passive: true });
       btn.addEventListener('touchend', () => { btn.style.opacity = '1'; }, { passive: true });
