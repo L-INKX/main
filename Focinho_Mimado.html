@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08a79c">
+<title>Focinho Mimado</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Fredoka:wght@500;600;700&display=swap');
+
+:root{
+  --teal:#08a79c;
+  --teal-dark:#008f88;
+  --orange:#ff7800;
+  --orange-dark:#f36b00;
+  --cream:#f9ead9;
+  --cream-2:#fff7ed;
+  --text:#087f78;
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  min-height:100%;
+}
+
+body{
+  background:var(--cream);
+  color:var(--text);
+  font-family:'Baloo 2',sans-serif;
+  overflow-x:hidden;
+}
+
+.page{
+  min-height:100svh;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  padding:35px 22px;
+  background:
+    radial-gradient(circle at 15% 12%,rgba(255,120,0,.10) 0 5px,transparent 6px),
+    radial-gradient(circle at 86% 20%,rgba(8,167,156,.10) 0 7px,transparent 8px),
+    linear-gradient(180deg,#fff8ef 0%,#f7e8d7 100%);
+}
+
+/* Faixa inferior inspirada no verde da arte */
+.page::after{
+  content:"";
+  position:absolute;
+  left:-8%;
+  right:-8%;
+  bottom:-13%;
+  height:34%;
+  background:var(--teal);
+  border-radius:50% 50% 0 0 / 32% 32% 0 0;
+  transform:rotate(-2deg);
+  z-index:0;
+}
+
+/* Confetes decorativos */
+.decor{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+}
+
+.dot,.heart,.paw{
+  position:absolute;
+  display:block;
+}
+
+.dot{
+  width:12px;height:12px;
+  border-radius:50%;
+  background:var(--orange);
+}
+
+.dot.teal{background:var(--teal)}
+.dot.small{width:7px;height:7px}
+
+.heart{
+  width:25px;
+  height:25px;
+  transform:rotate(-45deg);
+  background:var(--orange);
+  border-radius:4px;
+}
+.heart::before,.heart::after{
+  content:"";
+  position:absolute;
+  width:25px;height:25px;
+  background:inherit;
+  border-radius:50%;
+}
+.heart::before{top:-12px;left:0}
+.heart::after{left:12px;top:0}
+.heart.teal{background:var(--teal)}
+
+.paw{
+  width:38px;height:30px;
+  background:var(--teal);
+  border-radius:55% 55% 60% 60%;
+  transform:rotate(-8deg);
+}
+.paw::before,.paw::after{
+  content:"";
+  position:absolute;
+  width:11px;height:15px;
+  background:inherit;
+  border-radius:50%;
+  top:-10px;
+}
+.paw::before{left:3px;transform:rotate(-20deg)}
+.paw::after{right:3px;transform:rotate(20deg)}
+.paw i,.paw b{
+  position:absolute;
+  width:10px;height:14px;
+  background:inherit;
+  border-radius:50%;
+  top:-13px;
+}
+.paw i{left:13px}
+.paw b{right:13px;top:-11px}
+
+.d1{left:7%;top:11%}.d2{right:11%;top:9%}.d3{left:18%;top:29%}
+.d4{right:7%;top:43%}.d5{left:11%;bottom:22%}.d6{right:20%;bottom:17%}
+.h1{left:28%;top:12%}.h2{right:20%;top:18%}.h3{left:13%;bottom:27%}
+.h4{right:9%;bottom:29%}
+.p1{left:8%;top:23%;transform:scale(.72) rotate(-12deg)}
+.p2{right:8%;top:28%;transform:scale(.85) rotate(8deg)}
+.p3{left:23%;bottom:18%;transform:scale(.65)}
+.p4{right:25%;bottom:13%;transform:scale(.6) rotate(15deg)}
+
+.content{
+  width:min(760px,100%);
+  position:relative;
+  z-index:3;
+  text-align:center;
+  animation:entrance .8s ease both;
+}
+
+.anniversary{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  margin-bottom:8px;
+  color:var(--orange);
+  font-family:'Fredoka',sans-serif;
+  font-size:clamp(18px,4vw,27px);
+  font-weight:600;
+  letter-spacing:.04em;
+}
+
+.anniversary::before,.anniversary::after{
+  content:"";
+  width:45px;
+  height:4px;
+  border-radius:10px;
+  background:var(--orange);
+}
+
+.number{
+  margin:0;
+  color:var(--orange);
+  font-family:'Fredoka',sans-serif;
+  font-size:clamp(150px,31vw,290px);
+  line-height:.72;
+  font-weight:700;
+  letter-spacing:-.07em;
+  text-shadow:
+    0 0 0 #fff,
+    4px 4px 0 #fff,
+    -4px -4px 0 #fff,
+    4px -4px 0 #fff,
+    -4px 4px 0 #fff;
+  transform:rotate(-3deg);
+}
+
+.brand{
+  margin:-3px 0 15px;
+  font-family:'Fredoka',sans-serif;
+  font-weight:700;
+  font-size:clamp(56px,12vw,112px);
+  line-height:.78;
+  letter-spacing:-.045em;
+  color:var(--teal);
+  text-shadow:2px 3px 0 rgba(0,0,0,.03);
+}
+
+.brand span{
+  color:var(--orange);
+  display:block;
+}
+
+.subtitle{
+  margin:20px auto 25px;
+  max-width:530px;
+  color:#116e69;
+  font-size:clamp(18px,3.7vw,25px);
+  font-weight:600;
+  line-height:1.25;
+}
+
+.cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:245px;
+  padding:15px 30px;
+  border-radius:999px;
+  color:white;
+  background:var(--orange);
+  text-decoration:none;
+  font-family:'Fredoka',sans-serif;
+  font-size:21px;
+  font-weight:600;
+  box-shadow:0 7px 0 var(--orange-dark),0 12px 24px rgba(0,0,0,.12);
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+
+.cta:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 0 var(--orange-dark),0 16px 28px rgba(0,0,0,.14);
+}
+
+.cta:active{
+  transform:translateY(4px);
+  box-shadow:0 3px 0 var(--orange-dark),0 7px 14px rgba(0,0,0,.12);
+}
+
+.signature{
+  margin-top:25px;
+  color:var(--teal);
+  font-size:15px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+@keyframes entrance{
+  from{opacity:0;transform:translateY(20px) scale(.98)}
+  to{opacity:1;transform:none}
+}
+
+@media(max-width:600px){
+  .page{padding:25px 16px 50px}
+  .page::after{height:25%;bottom:-8%}
+  .number{font-size:clamp(130px,39vw,190px)}
+  .brand{font-size:clamp(52px,14vw,82px)}
+  .subtitle{margin-top:17px}
+  .cta{width:min(100%,300px)}
+  .p1,.p2{display:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .content{animation:none}
+  .cta{transition:none}
+}
+</style>
+</head>
+
+<body>
+<main class="page">
+
+  <div class="decor" aria-hidden="true">
+    <span class="dot d1"></span>
+    <span class="dot teal d2"></span>
+    <span class="dot small d3"></span>
+    <span class="dot teal d4"></span>
+    <span class="dot small d5"></span>
+    <span class="dot teal d6"></span>
+
+    <span class="heart h1"></span>
+    <span class="heart teal h2"></span>
+    <span class="heart h3"></span>
+    <span class="heart teal h4"></span>
+
+    <span class="paw p1"><i></i><b></b></span>
+    <span class="paw p2"><i></i><b></b></span>
+    <span class="paw p3"><i></i><b></b></span>
+    <span class="paw p4"><i></i><b></b></span>
+  </div>
+
+  <section class="content">
+    <div class="anniversary">CELEBRANDO</div>
+
+    <h1 class="number">5</h1>
+
+    <div class="brand">
+      Focinho
+      <span>Mimado</span>
+    </div>
+
+    <p class="subtitle">
+      5 anos de carinho, cuidado e muitos focinhos felizes.
+    </p>
+
+    <a class="cta" href="https://inkx.me/Focinho_Mimado">
+      Conheça o Focinho Mimado
+    </a>
+
+    <div class="signature">Amor que deixa patinhas no coração ♥</div>
+  </section>
+
+</main>
+
+<script>
+document.querySelector('.cta').addEventListener('click', function(){
+  this.style.transform = 'scale(.97)';
+  setTimeout(() => this.style.transform = '', 120);
+});
+</script>
+</body>
+</html>
