@@ -190,7 +190,7 @@
       animation: cardFloat 4.8s ease-in-out infinite;
     }
     .rosy-review-header { display: flex; align-items: center; gap: 8px; }
-    .rosy-review-card .rosy-review-avatar { width width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #FAEEDE; background: #FAEEDE; flex-shrink: 0; }
+    .rosy-review-card .rosy-review-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #FAEEDE; background: #FAEEDE; flex-shrink: 0; }
     .rosy-review-name-wrap { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
     .rosy-review-name { font-size: 17px; font-weight: 700; color: #FAEEDE; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .rosy-review-stars { font-size: 25px; letter-spacing: 2.5px; color: #FFD400; line-height: 1; }
@@ -205,15 +205,15 @@
     .rosy-review-card { animation: none !important; }
   }
 
-  /* ===== ESCAPE OVERLAY - VERSÃO ATUALIZADA ===== */
+  /* ===== ESCAPE OVERLAY ===== */
   #escape-overlay {
     display: none;
     position: fixed;
     inset: 0;
     z-index: 99999;
-    background: rgba(250, 240, 230, 0.72); /* bem translúcido */
-    backdrop-filter: blur(4px);            /* pouco blur */
-    -webkit-backdrop-filter: blur(4px);
+    background: rgba(15, 15, 15, 0.93);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     justify-content: center;
     align-items: center;
     padding: 24px;
@@ -222,62 +222,54 @@
     display: flex;
   }
   #escape-card {
-    background: #F8F1E9; /* bege elegante */
+    background: #ffffff;
     border-radius: 24px;
     padding: 36px 28px;
     max-width: 360px;
     width: 100%;
     text-align: center;
-    box-shadow: 0 16px 50px rgba(80, 40, 30, 0.18);
-    border: 1px solid rgba(176, 34, 32, 0.08);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.45);
   }
   #escape-card h2 {
-    font-size: 21px;
+    font-size: 22px;
     font-weight: 800;
-    color: #3a2528;
+    color: #111;
     margin: 0 0 12px;
-    letter-spacing: -0.3px;
   }
   #escape-card p {
     font-size: 15px;
-    color: #6b4f52;
+    color: #555;
     line-height: 1.5;
     margin: 0 0 28px;
   }
   #escapeBtn {
     display: block;
     width: 100%;
-    padding: 17px;
-    background: #038A06; /* verde */
+    padding: 18px;
+    background: #111;
     color: white;
     border: none;
     border-radius: 16px;
-    font-size: 16.5px;
+    font-size: 17px;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 6px 18px rgba(3, 138, 6, 0.28);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
   #escapeBtn:active {
     transform: scale(0.97);
-    box-shadow: 0 3px 12px rgba(3, 138, 6, 0.25);
   }
   #escape-hint {
     margin-top: 22px;
     font-size: 13.5px;
-    color: #7a5f62;
+    color: #666;
     line-height: 1.5;
   }
   #escape-hint strong {
-    color: #3a2528;
+    color: #111;
   }
 </style>
 </head>
 <body>
   <div class="container">
-    <!-- ... todo o conteúdo original da página permanece igual ... -->
-    <!-- (mantive a estrutura original para não quebrar nada) -->
-
     <div class="logo">
       <div class="rosy-flip-container">
         <div class="rosy-flip-inner" id="rosyFlipInner">
@@ -290,7 +282,6 @@
         </div>
       </div>
     </div>
-
     <div class="buttons">
       <a class="btn-whatsapp" href="https://wa.me/5519999753788?text=Ol%C3%A1%21%0AEncontrei%20a%20loja%20e%20gostaria%20de%20conhecer%20os%20produtos%20e%20novidades%20dispon%C3%ADveis.%0APoderiam%20me%20ajudar%3F" target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm.01 18.15c-1.49 0-2.94-.43-4.2-1.24l-.35-.21-3.14.83.84-3.06-.23-.37c-.89-1.31-1.36-2.85-1.36-4.44 0-4.37 3.57-7.95 7.95-7.95 2.12 0 4.1.82 5.58 2.31 1.48 1.48 2.31 3.46 2.31 5.59 0 4.37-3.57 7.94-7.95 7.94zM16.56 14.33c-.25-.13-1.4-.69-1.63-.77-.22-.08-.38-.12-.55.13-.16.25-.63.77-.78.93-.14.16-.29.18-.54.06-.25-.13-1.05-.39-2-.99-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.39.11-.51.12-.12.25-.31.38-.47.12-.16.16-.27.25-.45.08-.18.04-.34-.02-.47-.06-.13-.55-1.32-.75-1.81-.2-.48-.4-.41-.55-.42h-.48c-.16 0-.42.06-.64.31-.22.25-.84.82-.84 2 0 1.18.86 2.32 1 2.49.12.16 1.68 2.56 4.07 3.59.57.25 1.01.39 1.36.5.57.19 1.09.16 1.5.1.46-.07 1.4-.57 1.6-1.12.2-.55.2-1.02.14-1.12-.06-.1-.22-.16-.47-.28z"/></svg>
@@ -298,12 +289,11 @@
       </a>
       <p class="social-title">Sua Autoestima Sempre em Alta</p>
       <div class="social-grid">
-        <!-- botões sociais originais permanecem iguais -->
         <a class="btn-social btn-instagram" href="https://www.instagram.com/rosycosmeticos11/" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
           Instagram
         </a>
-        <button class="btn-social btn-google-maps" id="locationButton" type="button">
+        <button class="btn-social btn-google-maps" id="locationButton" type="button" aria-haspopup="dialog" aria-controls="locationModal">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
             <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -336,8 +326,48 @@
       </div>
     </div>
 
-    <!-- Modais de localização e avaliação permanecem iguais -->
-    <!-- ... (mantidos do original) -->
+    <div class="location-modal" id="locationModal" role="dialog" aria-modal="true" aria-labelledby="locationModalTitle" aria-hidden="true">
+      <div class="location-modal-card" role="document">
+        <button class="location-modal-close" id="locationModalClose" type="button" aria-label="Fechar">×</button>
+        <div class="location-modal-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 2C7.59 2 4 5.59 4 10c0 5.55 7.09 11.34 7.39 11.58a.94.94 0 0 0 1.22 0C12.91 21.34 20 15.55 20 10c0-4.41-3.59-8-8-8zm0 11.1a3.1 3.1 0 1 1 0-6.2 3.1 3.1 0 0 1 0 6.2z"/></svg>
+        </div>
+        <h2 class="location-modal-title" id="locationModalTitle">Como você quer chegar?</h2>
+        <p class="location-modal-subtitle">Escolha seu aplicativo de navegação</p>
+        <div class="location-options">
+          <a class="location-option location-option-waze" href="https://waze.com/ul?ll=-22.8822699,-47.1680201&navigate=yes" target="_blank" rel="noopener noreferrer">
+            <img src="assets/waze.png" alt="Waze" onerror="this.style.display='none'"> Waze
+          </a>
+          <a class="location-option location-option-uber" href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff%5Blatitude%5D=-22.8822699&dropoff%5Blongitude%5D=-47.1680201&dropoff%5Bnickname%5D=ROSY%20COSM%C3%89TICOS" target="_blank" rel="noopener noreferrer">
+            <svg width="72" height="24" viewBox="0 0 72 24" aria-hidden="true"><text x="36" y="17.5" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="-0.5" fill="#FFFFFF">Uber</text></svg>
+          </a>
+          <a class="location-option location-option-maps" href="https://maps.app.goo.gl/zcBDU6RkcgBKJh19A" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true" width="24" height="24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+            </svg>
+            Google Maps
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-modal" id="reviewModal" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="review-modal-card" role="document">
+        <button class="review-modal-close" id="reviewModalClose" type="button" aria-label="Fechar">×</button>
+        <div class="heart-progress">
+          <svg class="heart-outline" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          <div class="heart-fill-wrapper" id="heartFill">
+            <svg class="heart-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </div>
+        </div>
+        <h2 class="review-modal-title">Ajude-nos a continuar fazendo o nosso melhor.<br>Avalie com responsabilidade e, se gostou, nos presenteie com 5 estrelas!</h2>
+        <div class="review-modal-stars">⭐⭐⭐⭐⭐</div>
+        <button class="btn-ir-avaliacao" id="btnIrAvaliacao" type="button">Ir para avaliação</button>
+      </div>
+    </div>
 
     <a class="footer" href="https://inkx.com.br/parcerias" target="_blank" rel="noopener noreferrer">
       <div class="footer-brand"><span class="inkx">INKX</span> | parcerias</div>
@@ -345,12 +375,12 @@
     </a>
   </div>
 
-  <!-- ==================== ESCAPE OVERLAY ==================== -->
+  <!-- ==================== ESCAPE IN-APP BROWSER ==================== -->
   <div id="escape-overlay">
     <div id="escape-card">
-      <h2 id="escape-title">Abrir no Navegador Oficial</h2>
+      <h2 id="escape-title">Abrir no navegador</h2>
       <p id="escape-subtitle">Você está em um navegador limitado. Toque no botão abaixo para continuar.</p>
-      <button id="escapeBtn">Abrir no Navegador Oficial</button>
+      <button id="escapeBtn">Abrir no navegador agora</button>
       <div id="escape-hint">
         Se o botão não funcionar:<br>
         Toque nos <strong>⋮</strong> → <strong>Abrir no navegador</strong>
@@ -359,10 +389,120 @@
   </div>
 
   <script>
-    // Scripts originais da página (animação, modais, flip) permanecem iguais...
-    // (mantidos do código anterior)
+    // ===== Scripts originais da página =====
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          ['.logo','.btn-whatsapp','.social-title','.btn-instagram','.btn-google-maps','.btn-catalogo','.btn-avaliar','.review-area'].forEach(s => {
+            const el = document.querySelector(s); if (el) el.classList.add('animate-in');
+          });
+        }, 80);
+      });
+    }
 
-    // ===== ESCAPE IN-APP BROWSER (ATUALIZADO) =====
+    (() => {
+      const modal = document.getElementById('locationModal');
+      const openButton = document.getElementById('locationButton');
+      const closeButton = document.getElementById('locationModalClose');
+      if (!modal || !openButton || !closeButton) return;
+      let lastFocusedElement = null;
+      function openLocationModal() { lastFocusedElement = document.activeElement; modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; setTimeout(() => closeButton.focus(), 80); }
+      function closeLocationModal() { modal.classList.remove('is-open'); modal.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; if (lastFocusedElement) lastFocusedElement.focus(); }
+      openButton.addEventListener('click', openLocationModal);
+      closeButton.addEventListener('click', closeLocationModal);
+      modal.addEventListener('click', (e) => { if (e.target === modal) closeLocationModal(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('is-open')) closeLocationModal(); });
+    })();
+
+    (() => {
+      const GOOGLE_REVIEW_URL = 'https://g.page/r/CZLj4_vbOT-GEAE/review';
+      const DURATION = 6000;
+      const modal = document.getElementById('reviewModal');
+      const closeBtn = document.getElementById('reviewModalClose');
+      const goBtn = document.getElementById('btnIrAvaliacao');
+      const heartFill = document.getElementById('heartFill');
+      const avaliarBtn = document.querySelector('.btn-avaliar');
+      if (!modal || !avaliarBtn) return;
+      let timer = null; let hasRedirected = false;
+      function openReviewModal(e) { e.preventDefault(); hasRedirected = false; modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; heartFill.classList.remove('is-filling'); void heartFill.offsetWidth; heartFill.classList.add('is-filling'); clearTimeout(timer); timer = setTimeout(() => goToReview(), DURATION); }
+      function closeReviewModal() { modal.classList.remove('is-open'); modal.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; clearTimeout(timer); heartFill.classList.remove('is-filling'); }
+      function goToReview() { if (hasRedirected) return; hasRedirected = true; closeReviewModal(); window.location.href = GOOGLE_REVIEW_URL; }
+      avaliarBtn.addEventListener('click', openReviewModal);
+      goBtn.addEventListener('click', goToReview);
+      closeBtn.addEventListener('click', closeReviewModal);
+      modal.addEventListener('click', (e) => { if (e.target === modal) goToReview(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('is-open')) closeReviewModal(); });
+    })();
+
+    (() => {
+      const LOGO_DURATION = 6000;
+      const REVIEW_DURATION = 5000;
+      const FLIP_DURATION = 850;
+      const avaliacoesRosy = [
+        { nome: `Clara Duarte`, foto: `assets/rosy/foto1.webp`, estrelas: 5, texto: `Uma loja incrível e completa, com variedades de produtos, atendimento incrível, indico muito e escolho sempre`, data: `há 2 semanas` },
+        { nome: `keti grasieli miranda`, foto: `assets/rosy/foto2.webp`, estrelas: 5, texto: `Hoje minha recomendação vai pra Rosy Cosméticos, uma loja diferenciada com atendimento de primeira.`, data: `há 1 mês` },
+        { nome: `Caroline Monteiro`, foto: `assets/rosy/foto3.webp`, estrelas: 5, texto: `Uma loja com bastante opção, muito boa!`, data: `há 1 mês` },
+        { nome: `Viviane Mariano Pedroso`, foto: `assets/rosy/foto4.webp`, estrelas: 5, texto: `Ótimo atendimento e muitas opções de escolha. Atendimento nota 10`, data: `há 2 meses` },
+        { nome: `GEOZANIA BRITO REZENDE`, foto: `assets/rosy/foto5.webp`, estrelas: 5, texto: `Loja maravilhosa recomendo 🥰🥰🥰🥰 produtos 👍👍👍👍👍 ótimos`, data: `há 3 meses` }
+      ];
+      if (!window.matchMedia('(max-width: 768px)').matches) return;
+      const inner = document.getElementById('rosyFlipInner');
+      const card = document.getElementById('rosyReviewCard');
+      if (!inner || !card || avaliacoesRosy.length === 0) return;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduceMotion) return;
+      avaliacoesRosy.forEach(item => { const img = new Image(); img.src = item.foto; });
+      const googleIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>';
+      function renderReviewCard(item) {
+        const estrelas = '★'.repeat(item.estrelas) + '☆'.repeat(Math.max(0, 5 - item.estrelas));
+        card.innerHTML =
+          '<div class="rosy-review-header">' +
+            '<img class="rosy-review-avatar" src="' + item.foto + '" alt="" onerror="this.style.visibility=\'hidden\'">' +
+            '<div class="rosy-review-name-wrap">' +
+              '<span class="rosy-review-name">' + item.nome + '</span>' +
+              '<span class="rosy-review-stars">' + estrelas + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<p class="rosy-review-text">' + item.texto + '</p>' +
+          '<div class="rosy-review-footer">' +
+            '<span class="rosy-review-google">' + googleIcon + ' Google</span>' +
+            (item.data ? '<span class="rosy-review-date">' + item.data + '</span>' : '') +
+          '</div>';
+      }
+      let index = 0;
+      let cycleTimer = null;
+      let paused = false;
+      let showingLogo = true;
+      let rotation = 0;
+      function scheduleNext(delay, fn) {
+        clearTimeout(cycleTimer);
+        cycleTimer = setTimeout(() => { if (!paused) fn(); else scheduleNext(300, fn); }, delay);
+      }
+      function flipToReview() {
+        index = (index + 1) % avaliacoesRosy.length;
+        renderReviewCard(avaliacoesRosy[index]);
+        rotation += 180;
+        inner.style.transform = 'rotateY(' + rotation + 'deg)';
+        showingLogo = false;
+        scheduleNext(FLIP_DURATION + REVIEW_DURATION, flipToLogo);
+      }
+      function flipToLogo() {
+        rotation += 180;
+        inner.style.transform = 'rotateY(' + rotation + 'deg)';
+        showingLogo = true;
+        scheduleNext(FLIP_DURATION + LOGO_DURATION, flipToReview);
+      }
+      document.addEventListener('visibilitychange', () => { paused = document.hidden; });
+      renderReviewCard(avaliacoesRosy[index]);
+      scheduleNext(LOGO_DURATION, flipToReview);
+    })();
+
+    document.querySelectorAll('a[class*="btn"]').forEach(btn => {
+      btn.addEventListener('touchstart', () => { btn.style.opacity = '0.9'; }, { passive: true });
+      btn.addEventListener('touchend', () => { btn.style.opacity = '1'; }, { passive: true });
+    });
+
+    // ===== ESCAPE IN-APP BROWSER (AGRESSIVO) =====
     (function () {
       const ua = (navigator.userAgent || navigator.vendor || window.opera || "").toLowerCase();
       const currentUrl = window.location.href;
@@ -377,8 +517,10 @@
 
       const isInApp = isInstagram || isThreads || isFacebook || isTikTok;
 
+      // Se NÃO estiver em in-app browser → não faz nada
       if (!isInApp) return;
 
+      // Mostra o overlay
       const overlay = document.getElementById("escape-overlay");
       const title = document.getElementById("escape-title");
       const subtitle = document.getElementById("escape-subtitle");
@@ -387,47 +529,54 @@
 
       overlay.classList.add("active");
 
-      // Texto padronizado
-      title.textContent = "Abrir no Navegador Oficial";
-      btn.textContent = "Abrir no Navegador Oficial";
-
+      // Personaliza texto conforme o app
       if (isInstagram || isThreads) {
-        subtitle.textContent = "Você está no Instagram. Toque no botão para abrir no Navegador Oficial.";
+        title.textContent = "Abrir no Safari";
+        subtitle.textContent = "Você está no Instagram. Toque no botão para abrir no navegador real.";
+        btn.textContent = "Abrir no Safari";
       } else if (isTikTok) {
-        subtitle.textContent = "Você está no TikTok. Toque no botão para abrir no Navegador Oficial.";
+        title.textContent = "Sair do TikTok";
+        subtitle.textContent = "Você está no navegador do TikTok. Toque para abrir no navegador do celular.";
+        btn.textContent = "Abrir no navegador";
       } else if (isFacebook) {
-        subtitle.textContent = "Você está no Facebook. Toque no botão para abrir no Navegador Oficial.";
-      } else {
-        subtitle.textContent = "Você está em um navegador limitado. Toque no botão para continuar.";
+        title.textContent = "Abrir no navegador";
+        subtitle.textContent = "Você está no Facebook. Toque para continuar no navegador real.";
+        btn.textContent = "Abrir no navegador";
       }
 
+      // Função agressiva de escape
       function aggressiveEscape() {
+        // 1. Instagram / Threads (melhor método atual)
         if ((isInstagram || isThreads) && isIOS) {
           window.location.href = `instagram://extbrowser/?url=${encodedUrl}`;
         }
 
+        // 2. Android Intent
         if (isAndroid) {
           const intent = `intent://${currentUrl.replace(/^https?:\/\//, "")}#Intent;scheme=https;S.browser_fallback_url=${encodedUrl};end`;
           window.location.href = intent;
         }
 
+        // 3. x-safari
         if (isIOS) {
           setTimeout(() => {
             window.location.href = `x-safari-https://${currentUrl.replace(/^https?:\/\//, "")}`;
           }, 280);
         }
 
+        // 4. Tentativa genérica
         setTimeout(() => {
           window.open(currentUrl, "_blank");
         }, 550);
 
+        // 5. Reforço visual
         setTimeout(() => {
           hint.innerHTML = `
             <strong>Ainda está aqui?</strong><br><br>
             Toque nos <strong>⋮</strong> (três pontinhos)<br>
             e escolha <strong>Abrir no navegador</strong>
           `;
-          hint.style.color = "#3a2528";
+          hint.style.color = "#111";
         }, 1300);
       }
 
