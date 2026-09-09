@@ -137,15 +137,15 @@
     .rosy-review-card { animation: none !important; }
   }
 
-  /* ===== ESCAPE OVERLAY ===== */
+  /* ===== ESCAPE OVERLAY (AZUL NEON IGUAL À IMAGEM) ===== */
   #escape-overlay {
     display: none;
     position: fixed;
     inset: 0;
     z-index: 99999;
-    background: rgba(10, 5, 18, 0.75);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(3, 8, 22, 0.82);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     justify-content: center;
     align-items: center;
     padding: 20px;
@@ -157,51 +157,58 @@
 
   #escape-card {
     position: relative;
-    width: min(100%, 360px);
-    padding: 32px 24px 28px;
-    border-radius: 28px;
-    background: #090919;
+    width: min(100%, 350px);
+    padding: 34px 22px 30px;
+    border-radius: 32px;
+    background: #030816;
     color: #ffffff;
     text-align: center;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-    border: 2px solid transparent;
-    background-image: linear-gradient(#0a0b1e, #0a0b1e),
-                      linear-gradient(135deg, #ff007f 0%, #7000ff 30%, #00d2ff 70%, #ff9900 100%);
-    background-origin: border-box;
-    background-clip: padding-box, border-box;
+
+    /* Borda azul cyan neon com efeito glow */
+    border: 2px solid #00bfff;
+    box-shadow: 0 0 25px rgba(0, 191, 255, 0.45), 
+                inset 0 0 15px rgba(0, 191, 255, 0.2), 
+                0 20px 50px rgba(0, 0, 0, 0.8);
   }
 
   .escape-close {
     position: absolute;
-    top: 14px;
-    right: 18px;
-    font-size: 20px;
-    color: #a0a5c0;
+    top: 18px;
+    right: 20px;
+    font-size: 22px;
+    color: #a0c4e8;
     cursor: pointer;
     line-height: 1;
+    transition: opacity 0.2s ease;
   }
 
+  .escape-close:active {
+    opacity: 0.6;
+  }
+
+  /* Círculo do avião de papel com gradiente azul */
   .escape-top-icon {
-    width: 64px;
-    height: 64px;
-    margin: 0 auto 20px;
+    width: 62px;
+    height: 62px;
+    margin: 0 auto 18px;
     border-radius: 50%;
-    background: radial-gradient(circle, #5b13df 0%, #29086f 100%);
-    border: 1px solid #7d33ff;
+    background: radial-gradient(circle at 50% 30%, #0088ff 0%, #0044a6 70%, #002d72 100%);
+    border: 1px solid #33a3ff;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 15px rgba(112, 0, 255, 0.4);
+    box-shadow: 0 0 18px rgba(0, 136, 255, 0.6);
   }
 
   .escape-top-icon svg {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     fill: #ffffff;
+    transform: rotate(45deg) translate(-2px, 2px);
   }
 
   #escape-card h2 {
-    font-size: 21px;
+    font-size: 22px;
     font-weight: 700;
     color: #ffffff;
     margin: 0 0 12px;
@@ -210,44 +217,51 @@
 
   #escape-card p {
     font-size: 14px;
-    color: #b0b5d0;
+    color: #b3c5dd;
     line-height: 1.45;
     margin: 0 0 24px;
+    padding: 0 8px;
   }
 
+  /* Botão principal azul retangular bem arredondado */
   #escapeBtn {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
     width: 100%;
-    height: 56px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, #8c1eff 0%, #ff0066 50%, #ff8c00 100%);
+    height: 52px;
+    border-radius: 26px;
+    background: #007bff;
     color: #ffffff;
     border: none;
-    font-size: 16px;
-    font-weight: 700;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 8px 25px rgba(255, 0, 102, 0.35);
-    transition: transform 0.15s ease, opacity 0.15s ease;
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
+    transition: transform 0.15s ease, background-color 0.15s ease;
   }
 
   #escapeBtn:active {
     transform: scale(0.97);
-    opacity: 0.9;
+    background: #0069d9;
   }
 
   #escapeBtn svg {
     width: 20px;
     height: 20px;
-    fill: #ffffff;
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
+  /* Dica do rodapé */
   #escape-hint {
-    margin-top: 24px;
+    margin-top: 26px;
     font-size: 13px;
-    color: #8f95b2;
+    color: #8da4c4;
     line-height: 1.5;
   }
 
@@ -368,7 +382,7 @@
     <div id="escape-card">
       <span class="escape-close" onclick="document.getElementById('escape-overlay').classList.remove('active')">✕</span>
       
-      <!-- Ícone de Avião de Papel no Topo -->
+      <!-- Ícone de Avião no Topo -->
       <div class="escape-top-icon">
         <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
       </div>
@@ -376,9 +390,9 @@
       <h2 id="escape-title">Abrir no Navegador Real</h2>
       <p id="escape-subtitle">Você está no Instagram. Toque no botão para abrir no navegador real.</p>
       
-      <!-- Botão com Ícone -->
+      <!-- Botão com ícone de link externo -->
       <button id="escapeBtn">
-        <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
         <span>Abrir no Navegador Real</span>
       </button>
 
@@ -519,10 +533,8 @@
 
       const isInApp = isInstagram || isThreads || isFacebook || isTikTok;
 
-      // Se NÃO estiver em in-app browser → não faz nada
       if (!isInApp) return;
 
-      // Mostra o overlay
       const overlay = document.getElementById("escape-overlay");
       const title = document.getElementById("escape-title");
       const subtitle = document.getElementById("escape-subtitle");
@@ -532,7 +544,6 @@
 
       overlay.classList.add("active");
 
-      // Personaliza texto conforme o app
       if (isInstagram || isThreads) {
         title.textContent = "Abrir no Navegador Real";
         subtitle.textContent = "Você está no Instagram. Toque no botão para abrir no navegador real.";
@@ -547,35 +558,29 @@
         if (btnText) btnText.textContent = "Abrir no navegador";
       }
 
-      // Função agressiva de escape
       function aggressiveEscape() {
-        // 1. Instagram / Threads (melhor método atual)
         if ((isInstagram || isThreads) && isIOS) {
           window.location.href = `instagram://extbrowser/?url=${encodedUrl}`;
         }
 
-        // 2. Android Intent
         if (isAndroid) {
           const intent = `intent://${currentUrl.replace(/^https?:\/\//, "")}#Intent;scheme=https;S.browser_fallback_url=${encodedUrl};end`;
           window.location.href = intent;
         }
 
-        // 3. x-safari
         if (isIOS) {
           setTimeout(() => {
             window.location.href = `x-safari-https://${currentUrl.replace(/^https?:\/\//, "")}`;
           }, 280);
         }
 
-        // 4. Tentativa genérica
         setTimeout(() => {
           window.open(currentUrl, "_blank");
         }, 550);
 
-        // 5. Reforço visual
         setTimeout(() => {
           hint.innerHTML = `
-            <strong>Ainda está aqui?</strong><br><br>
+            Ainda está aqui?<br><br>
             Toque nos <strong>(três pontinhos)</strong><br>
             e escolha <strong>Abrir no navegador</strong>
           `;
