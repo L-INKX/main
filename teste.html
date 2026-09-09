@@ -24,32 +24,8 @@
   .logo { width: 100%; padding: 12px 0 8px; display: flex; justify-content: center; align-items: center; }
   .logo img { width: 100%; max-width: 420px; height: auto; display: block; filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.25)); }
   .buttons { width: 100%; display: flex; flex-direction: column; gap: 16px; flex: 1; justify-content: center; padding: 0 20px; }
-.btn-whatsapp {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 13px;
-  width: 100%;
-  height: 64px;
-  border-radius: 999px;
-  background: #038A06;
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: 700;
-  text-decoration: none;
-  box-shadow:
-    inset 0 0 0 2px rgba(186, 255, 201, 0.75),
-    0 0 22px rgba(100, 255, 140, 0.55),
-    0 5px 18px rgba(0, 0, 0, 0.28);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-.btn-whatsapp:active {
-  transform: scale(0.97);
-  box-shadow:
-    inset 0 0 0 2px rgba(186, 255, 201, 0.6),
-    0 0 16px rgba(100, 255, 140, 0.4),
-    0 3px 12px rgba(0, 0, 0, 0.3);
-}
+  .btn-whatsapp { display: flex; align-items: center; justify-content: center; gap: 13px; width: 100%; height: 64px; border-radius: 999px; background: #038A06; color: #ffffff; font-size: 18px; font-weight: 700; text-decoration: none; box-shadow: inset 0 0 0 2px rgba(186, 255, 201, 0.75), 0 0 22px rgba(100, 255, 140, 0.55), 0 5px 18px rgba(0, 0, 0, 0.28); transition: transform 0.15s ease, box-shadow 0.15s ease; }
+  .btn-whatsapp:active { transform: scale(0.97); box-shadow: inset 0 0 0 2px rgba(186, 255, 201, 0.6), 0 0 16px rgba(100, 255, 140, 0.4), 0 3px 12px rgba(0, 0, 0, 0.3); }
   .btn-whatsapp svg { width: 26px; height: 26px; fill: #ffffff; }
   .social-title { text-align: center; font-size: 14px; font-weight: 500; color: #ffffff; letter-spacing: -0.3px; margin: 4px 0 2px; opacity: 0.95; }
   .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
@@ -139,56 +115,12 @@
   .rosy-flip-container { width: 100%; }
   .rosy-face-back { display: none; }
   @media (max-width: 768px) {
-    .rosy-flip-container {
-      position: relative;
-      width: 100%;
-      max-width: 420px;
-      height: var(--rosy-flip-height, 190px);
-      perspective: 900px;
-      -webkit-perspective: 900px;
-    }
-    .rosy-flip-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transform-style: preserve-3d;
-      -webkit-transform-style: preserve-3d;
-      transition: transform 0.85s cubic-bezier(0.33, 0.0, 0.2, 1);
-      will-change: transform;
-    }
-    .rosy-face-front, .rosy-face-back {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      transform-style: flat;
-      -webkit-transform-style: flat;
-      transform: translateZ(0.01px);
-      -webkit-transform: translateZ(0.01px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    .rosy-flip-container { position: relative; width: 100%; max-width: 420px; height: var(--rosy-flip-height, 190px); perspective: 900px; -webkit-perspective: 900px; }
+    .rosy-flip-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; -webkit-transform-style: preserve-3d; transition: transform 0.85s cubic-bezier(0.33, 0.0, 0.2, 1); will-change: transform; }
+    .rosy-face-front, .rosy-face-back { position: absolute; inset: 0; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform-style: flat; -webkit-transform-style: flat; transform: translateZ(0.01px); -webkit-transform: translateZ(0.01px); display: flex; align-items: center; justify-content: center; }
     .rosy-face-back { display: flex; transform: rotateY(180deg) translateZ(0.01px); -webkit-transform: rotateY(180deg) translateZ(0.01px); }
     .rosy-face-front img { height: 100%; width: auto; max-width: 100%; object-fit: contain; }
-    .rosy-review-card {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(160deg, #B02220 0%, #c92e2b 100%);
-      border-radius: 24px;
-      padding: 12px 14px 11px;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.07) inset;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      color: #FAEEDE;
-      overflow: hidden;
-      transform: scale(0.8);
-      transform-origin: center center;
-      animation: cardFloat 4.8s ease-in-out infinite;
-    }
+    .rosy-review-card { width: 100%; height: 100%; background: linear-gradient(160deg, #B02220 0%, #c92e2b 100%); border-radius: 24px; padding: 12px 14px 11px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.07) inset; display: flex; flex-direction: column; gap: 6px; color: #FAEEDE; overflow: hidden; transform: scale(0.8); transform-origin: center center; animation: cardFloat 4.8s ease-in-out infinite; }
     .rosy-review-header { display: flex; align-items: center; gap: 8px; }
     .rosy-review-card .rosy-review-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #FAEEDE; background: #FAEEDE; flex-shrink: 0; }
     .rosy-review-name-wrap { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
@@ -206,66 +138,15 @@
   }
 
   /* ===== ESCAPE OVERLAY ===== */
-  #escape-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 99999;
-    background: rgba(15, 15, 15, 0.20);
-    backdrop-filter: blur(1px);
-    -webkit-backdrop-filter: blur(1px);
-    justify-content: center;
-    align-items: center;
-    padding: 24px;
-  }
-  #escape-overlay.active {
-    display: flex;
-  }
-  #escape-card {
-    background: #ffffff;
-    border-radius: 24px;
-    padding: 36px 28px;
-    max-width: 360px;
-    width: 100%;
-    text-align: center;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.45);
-  }
-  #escape-card h2 {
-    font-size: 22px;
-    font-weight: 800;
-    color: #111;
-    margin: 0 0 12px;
-  }
-  #escape-card p {
-    font-size: 15px;
-    color: #555;
-    line-height: 1.5;
-    margin: 0 0 28px;
-  }
-  #escapeBtn {
-    display: block;
-    width: 100%;
-    padding: 18px;
-    background: #111;
-    color: white;
-    border: none;
-    border-radius: 16px;
-    font-size: 17px;
-    font-weight: 700;
-    cursor: pointer;
-  }
-  #escapeBtn:active {
-    transform: scale(0.97);
-  }
-  #escape-hint {
-    margin-top: 22px;
-    font-size: 13.5px;
-    color: #666;
-    line-height: 1.5;
-  }
-  #escape-hint strong {
-    color: #111;
-  }
+  #escape-overlay { display: none; position: fixed; inset: 0; z-index: 99999; background: rgba(15, 15, 15, 0.55); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); justify-content: center; align-items: center; padding: 24px; }
+  #escape-overlay.active { display: flex; }
+  #escape-card { background: #ffffff; border-radius: 24px; padding: 36px 28px; max-width: 360px; width: 100%; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.45); }
+  #escape-card h2 { font-size: 22px; font-weight: 800; color: #111; margin: 0 0 12px; }
+  #escape-card p { font-size: 15px; color: #555; line-height: 1.5; margin: 0 0 28px; }
+  #escapeBtn { display: flex; align-items: center; justify-content: center; gap: 13px; width: 100%; height: 64px; border-radius: 999px; background: #038A06; color: #ffffff; border: none; font-size: 17px; font-weight: 700; cursor: pointer; box-shadow: inset 0 0 0 2px rgba(186, 255, 201, 0.75), 0 0 22px rgba(100, 255, 140, 0.55), 0 5px 18px rgba(0, 0, 0, 0.28); transition: transform 0.15s ease, box-shadow 0.15s ease; }
+  #escapeBtn:active { transform: scale(0.97); box-shadow: inset 0 0 0 2px rgba(186, 255, 201, 0.6), 0 0 16px rgba(100, 255, 140, 0.4), 0 3px 12px rgba(0, 0, 0, 0.3); }
+  #escape-hint { margin-top: 22px; font-size: 13.5px; color: #666; line-height: 1.5; }
+  #escape-hint strong { color: #111; }
 </style>
 </head>
 <body>
