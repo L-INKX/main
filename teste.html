@@ -138,15 +138,122 @@
   }
 
   /* ===== ESCAPE OVERLAY ===== */
-  #escape-overlay { display: none; position: fixed; inset: 0; z-index: 99999; background: rgba(15, 15, 15, 0.55); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); justify-content: center; align-items: center; padding: 24px; }
-  #escape-overlay.active { display: flex; }
-  #escape-card { background: #ffffff; border-radius: 24px; padding: 36px 28px; max-width: 360px; width: 100%; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.45); }
-  #escape-card h2 { font-size: 22px; font-weight: 800; color: #111; margin: 0 0 12px; }
-  #escape-card p { font-size: 15px; color: #555; line-height: 1.5; margin: 0 0 28px; }
-  #escapeBtn { display: flex; align-items: center; justify-content: center; gap: 13px; width: 100%; height: 64px; border-radius: 999px; background: #038A06; color: #ffffff; border: none; font-size: 17px; font-weight: 700; cursor: pointer; box-shadow: inset 0 0 0 2px rgba(186, 255, 201, 0.75), 0 0 22px rgba(100, 255, 140, 0.55), 0 5px 18px rgba(0, 0, 0, 0.28); transition: transform 0.15s ease, box-shadow 0.15s ease; }
-  #escapeBtn:active { transform: scale(0.97); box-shadow: inset 0 0 0 2px rgba(186, 255, 201, 0.6), 0 0 16px rgba(100, 255, 140, 0.4), 0 3px 12px rgba(0, 0, 0, 0.3); }
-  #escape-hint { margin-top: 22px; font-size: 13.5px; color: #666; line-height: 1.5; }
-  #escape-hint strong { color: #111; }
+  #escape-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: rgba(10, 5, 18, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  #escape-overlay.active {
+    display: flex;
+  }
+
+  #escape-card {
+    position: relative;
+    width: min(100%, 360px);
+    padding: 32px 24px 28px;
+    border-radius: 28px;
+    background: #090919;
+    color: #ffffff;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    border: 2px solid transparent;
+    background-image: linear-gradient(#0a0b1e, #0a0b1e),
+                      linear-gradient(135deg, #ff007f 0%, #7000ff 30%, #00d2ff 70%, #ff9900 100%);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+
+  .escape-close {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    font-size: 20px;
+    color: #a0a5c0;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .escape-top-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #5b13df 0%, #29086f 100%);
+    border: 1px solid #7d33ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 15px rgba(112, 0, 255, 0.4);
+  }
+
+  .escape-top-icon svg {
+    width: 28px;
+    height: 28px;
+    fill: #ffffff;
+  }
+
+  #escape-card h2 {
+    font-size: 21px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 12px;
+    letter-spacing: -0.3px;
+  }
+
+  #escape-card p {
+    font-size: 14px;
+    color: #b0b5d0;
+    line-height: 1.45;
+    margin: 0 0 24px;
+  }
+
+  #escapeBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 56px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #8c1eff 0%, #ff0066 50%, #ff8c00 100%);
+    color: #ffffff;
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(255, 0, 102, 0.35);
+    transition: transform 0.15s ease, opacity 0.15s ease;
+  }
+
+  #escapeBtn:active {
+    transform: scale(0.97);
+    opacity: 0.9;
+  }
+
+  #escapeBtn svg {
+    width: 20px;
+    height: 20px;
+    fill: #ffffff;
+  }
+
+  #escape-hint {
+    margin-top: 24px;
+    font-size: 13px;
+    color: #8f95b2;
+    line-height: 1.5;
+  }
+
+  #escape-hint strong {
+    color: #ffffff;
+  }
 </style>
 </head>
 <body>
@@ -259,12 +366,26 @@
   <!-- ==================== ESCAPE IN-APP BROWSER ==================== -->
   <div id="escape-overlay">
     <div id="escape-card">
-      <h2 id="escape-title">Abrir no navegador</h2>
-      <p id="escape-subtitle">Você está em um navegador limitado. Toque no botão abaixo para continuar.</p>
-      <button id="escapeBtn">Abrir no navegador agora</button>
+      <span class="escape-close" onclick="document.getElementById('escape-overlay').classList.remove('active')">✕</span>
+      
+      <!-- Ícone de Avião de Papel no Topo -->
+      <div class="escape-top-icon">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </div>
+
+      <h2 id="escape-title">Abrir no Navegador Real</h2>
+      <p id="escape-subtitle">Você está no Instagram. Toque no botão para abrir no navegador real.</p>
+      
+      <!-- Botão com Ícone -->
+      <button id="escapeBtn">
+        <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+        <span>Abrir no Navegador Real</span>
+      </button>
+
       <div id="escape-hint">
-        Se o botão não funcionar:<br>
-        Toque nos <strong>⋮</strong> → <strong>Abrir no navegador</strong>
+        Ainda está aqui?<br><br>
+        Toque nos (três pontinhos)<br>
+        e escolha <strong>Abrir no navegador</strong>
       </div>
     </div>
   </div>
@@ -406,23 +527,24 @@
       const title = document.getElementById("escape-title");
       const subtitle = document.getElementById("escape-subtitle");
       const btn = document.getElementById("escapeBtn");
+      const btnText = btn.querySelector("span");
       const hint = document.getElementById("escape-hint");
 
       overlay.classList.add("active");
 
       // Personaliza texto conforme o app
       if (isInstagram || isThreads) {
-        title.textContent = "Abrir no Navegador";
+        title.textContent = "Abrir no Navegador Real";
         subtitle.textContent = "Você está no Instagram. Toque no botão para abrir no navegador real.";
-        btn.textContent = "Abrir no Navegador Real";
+        if (btnText) btnText.textContent = "Abrir no Navegador Real";
       } else if (isTikTok) {
         title.textContent = "Sair do TikTok";
         subtitle.textContent = "Você está no navegador do TikTok. Toque para abrir no navegador do celular.";
-        btn.textContent = "Abrir no navegador";
+        if (btnText) btnText.textContent = "Abrir no navegador";
       } else if (isFacebook) {
         title.textContent = "Abrir no navegador";
         subtitle.textContent = "Você está no Facebook. Toque para continuar no navegador real.";
-        btn.textContent = "Abrir no navegador";
+        if (btnText) btnText.textContent = "Abrir no navegador";
       }
 
       // Função agressiva de escape
@@ -454,10 +576,10 @@
         setTimeout(() => {
           hint.innerHTML = `
             <strong>Ainda está aqui?</strong><br><br>
-            Toque nos <strong>⋮</strong> (três pontinhos)<br>
+            Toque nos <strong>(três pontinhos)</strong><br>
             e escolha <strong>Abrir no navegador</strong>
           `;
-          hint.style.color = "#111";
+          hint.style.color = "#ffffff";
         }, 1300);
       }
 
