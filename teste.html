@@ -865,13 +865,13 @@
     // ===== INKX - EFEITO DE ASSINATURA (FOOTER, APENAS MOBILE/TOUCH) =====
     (function () {
       // ---- Constantes ajustáveis ----
-      var INKX_DELAY_TELA_LCD = 120;             // atraso (ms) entre tela_vidro.webp e tela_lcd.webp (faixa recomendada: 80-150ms)
-      var INKX_DURACAO_TELAS_QUEBRADAS = 2000;    // tempo (ms) que as duas telas ficam visíveis juntas antes do fade para preto
-      var INKX_OPACIDADE_VIDRO = 0.55;            // opacidade da camada tela_vidro.webp (0 a 1)
-      var INKX_OPACIDADE_LCD = 0.55;              // opacidade da camada tela_lcd.webp (0 a 1)
+      var INKX_DELAY_TELA_LCD = 220;             // atraso (ms) entre tela_vidro.webp e tela_lcd.webp (faixa recomendada: 80-150ms)
+      var INKX_DURACAO_TELAS_QUEBRADAS = 3000;    // tempo (ms) que as duas telas ficam visíveis juntas antes do fade para preto
+      var INKX_OPACIDADE_VIDRO = 0.8;            // opacidade da camada tela_vidro.webp (0 a 1)
+      var INKX_OPACIDADE_LCD = 0.8;              // opacidade da camada tela_lcd.webp (0 a 1)
       var INKX_DURACAO_FADE_ENTRADA = 250;        // duração (ms) do fade-in de cada imagem ao aparecer
       var INKX_DURACAO_FADE_PRETO = 600;          // duração (ms) da transição para a tela preta
-      var INKX_DURACAO_MENSAGEM = 1800;           // tempo (ms) que a logo + mensagem final ficam visíveis antes do redirecionamento
+      var INKX_DURACAO_MENSAGEM = 3000;           // tempo (ms) que a logo + mensagem final ficam visíveis antes do redirecionamento
       var INKX_STORAGE_KEY = 'inkx_signature_effect_done_v1'; // chave do localStorage (altere o sufixo "_v1" para resetar o efeito durante testes)
 
       var footerLink = document.querySelector('a.footer');
