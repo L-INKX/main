@@ -891,7 +891,8 @@
       var isRunning = false;
 
       function effectAlreadyPlayed() {
-        try { return localStorage.getItem(INKX_STORAGE_KEY) === '1'; }
+       return false; 
+       try { return localStorage.getItem(INKX_STORAGE_KEY) === '1'; }
         catch (err) { return false; }
       }
 
