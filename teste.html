@@ -228,26 +228,21 @@
     opacity: 0.6;
   }
 
-  /* Círculo do avião de papel com gradiente azul */
+   /* Faixa com as logos dos navegadores (substitui o antigo ícone de avião) */
   .escape-top-icon {
-    width: 62px;
-    height: 62px;
-    margin: 0 auto 18px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 50% 30%, #0088ff 0%, #0044a6 70%, #002d72 100%);
-    border: 1px solid #33a3ff;
+    width: 100%;
+    max-width: 210px;
+    margin: 0 auto 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 18px rgba(0, 136, 255, 0.6);
   }
 
-  /* AVIÃO DE PAPEL – MAIOR E CENTRALIZADO */
-  .escape-top-icon svg {
-    width: 35px;          /* antes 26px */
-    height: 35px;         /* antes 26px */
-    fill: #ffffff;
-    transform: rotate(-45deg);  /* removeu o translate para centralizar */
+  .escape-top-icon .escape-browsers-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 4px 14px rgba(0, 136, 255, 0.35));
   }
 
   #escape-card h2 {
@@ -548,7 +543,7 @@
       
       <!-- Ícone de Avião no Topo -->
       <div class="escape-top-icon">
-        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        <img src="https://inkx.me/assets/browsers.webp" alt="Navegadores recomendados" class="escape-browsers-img">
       </div>
 
       <h2 id="escape-title">Abrir no Navegador Real</h2>
