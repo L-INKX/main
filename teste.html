@@ -1,6 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+ <script>
+(function() {
+  const allowlist = []; // vazio = nada é preservado
+
+  const url = new URL(window.location.href);
+  const toKeep = new URLSearchParams();
+
+  allowlist.forEach(p => {
+    if (url.searchParams.has(p)) toKeep.set(p, url.searchParams.get(p));
+  });
+
+  const cleanSearch = toKeep.toString();
+  const clean = url.pathname + (cleanSearch ? '?' + cleanSearch : '') + url.hash;
+
+  if (clean !== url.pathname + url.search + url.hash) {
+    history.replaceState({}, document.title, clean);
+  }
+})();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Rosy Cosméticos - Loja de Cosméticos | Ink X</title>
