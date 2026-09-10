@@ -333,6 +333,9 @@
     opacity: 0;
     transition: opacity var(--inkx-fade, 0.25s) ease;
   }
+  /* tela_lcd.webp fica por baixo (atrás) de tela_vidro.webp na composição */
+  #inkx-effect-overlay .inkx-effect-glass { z-index: 2; }
+  #inkx-effect-overlay .inkx-effect-lcd { z-index: 1; }
   #inkx-effect-overlay .inkx-effect-black {
     position: absolute;
     inset: 0;
@@ -340,6 +343,7 @@
     height: 100%;
     background: #000000;
     opacity: 0;
+    z-index: 3;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -867,11 +871,11 @@
       // ---- Constantes ajustáveis ----
       var INKX_DELAY_TELA_LCD = 220;             // atraso (ms) entre tela_vidro.webp e tela_lcd.webp (faixa recomendada: 80-150ms)
       var INKX_DURACAO_TELAS_QUEBRADAS = 3000;    // tempo (ms) que as duas telas ficam visíveis juntas antes do fade para preto
-      var INKX_OPACIDADE_VIDRO = 0.8;            // opacidade da camada tela_vidro.webp (0 a 1)
+      var INKX_OPACIDADE_VIDRO = 0.9;            // opacidade da camada tela_vidro.webp (0 a 1)
       var INKX_OPACIDADE_LCD = 0.8;              // opacidade da camada tela_lcd.webp (0 a 1)
-      var INKX_DURACAO_FADE_ENTRADA = 250;        // duração (ms) do fade-in de cada imagem ao aparecer
-      var INKX_DURACAO_FADE_PRETO = 600;          // duração (ms) da transição para a tela preta
-      var INKX_DURACAO_MENSAGEM = 3000;           // tempo (ms) que a logo + mensagem final ficam visíveis antes do redirecionamento
+      var INKX_DURACAO_FADE_ENTRADA = 50;        // duração (ms) do fade-in de cada imagem ao aparecer
+      var INKX_DURACAO_FADE_PRETO = 800;          // duração (ms) da transição para a tela preta
+      var INKX_DURACAO_MENSAGEM = 4000;           // tempo (ms) que a logo + mensagem final ficam visíveis antes do redirecionamento
       var INKX_STORAGE_KEY = 'inkx_signature_effect_done_v1'; // chave do localStorage (altere o sufixo "_v1" para resetar o efeito durante testes)
 
       var footerLink = document.querySelector('a.footer');
@@ -891,8 +895,8 @@
       var isRunning = false;
 
       function effectAlreadyPlayed() {
-       return false; 
-       try { return localStorage.getItem(INKX_STORAGE_KEY) === '1'; }
+        return false; 
+		try { return localStorage.getItem(INKX_STORAGE_KEY) === '1'; }
         catch (err) { return false; }
       }
 
@@ -944,7 +948,7 @@
 
         // 3. Camada tela_vidro.webp (exibida imediatamente).
         var glass = document.createElement('img');
-        glass.className = 'inkx-effect-layer';
+        glass.className = 'inkx-effect-layer inkx-effect-glass';
         glass.src = 'https://inkx.com.br/assets/tela_vidro.webp';
         glass.alt = '';
         glass.setAttribute('aria-hidden', 'true');
@@ -953,7 +957,7 @@
 
         // 4. Camada tela_lcd.webp (sobreposta ~80-150ms depois).
         var lcd = document.createElement('img');
-        lcd.className = 'inkx-effect-layer';
+        lcd.className = 'inkx-effect-layer inkx-effect-lcd';
         lcd.src = 'https://inkx.com.br/assets/tela_lcd.webp';
         lcd.alt = '';
         lcd.setAttribute('aria-hidden', 'true');
