@@ -312,6 +312,71 @@
   #escape-hint strong {
     color: #ffffff;
   }
+
+  /* ===== INKX - Efeito de assinatura (footer, apenas mobile/touch) ===== */
+  #inkx-effect-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2147483647;
+    overflow: hidden;
+    background: transparent;
+    -webkit-tap-highlight-color: transparent;
+  }
+  #inkx-effect-overlay .inkx-effect-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity var(--inkx-fade, 0.25s) ease;
+  }
+  #inkx-effect-overlay .inkx-effect-black {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    transition: opacity var(--inkx-black-fade, 0.6s) ease;
+  }
+  #inkx-effect-overlay .inkx-effect-logo {
+    max-width: 55%;
+    max-height: 22vh;
+    height: auto;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 22px;
+  }
+  #inkx-effect-overlay .inkx-effect-title {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    color: #ffffff;
+    margin-bottom: 8px;
+    line-height: 1.25;
+  }
+  #inkx-effect-overlay .inkx-effect-subtitle {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 320px;
+    line-height: 1.45;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #inkx-effect-overlay .inkx-effect-layer,
+    #inkx-effect-overlay .inkx-effect-black {
+      transition: none !important;
+    }
+  }
 </style>
 </head>
 <body>
@@ -794,6 +859,168 @@
       btn.addEventListener("click", function (e) {
         e.preventDefault();
         aggressiveEscape();
+      });
+    })();
+
+    // ===== INKX - EFEITO DE ASSINATURA (FOOTER, APENAS MOBILE/TOUCH) =====
+    (function () {
+      // ---- Constantes ajustáveis ----
+      var INKX_DELAY_TELA_LCD = 120;             // atraso (ms) entre tela_vidro.webp e tela_lcd.webp (faixa recomendada: 80-150ms)
+      var INKX_DURACAO_TELAS_QUEBRADAS = 2000;    // tempo (ms) que as duas telas ficam visíveis juntas antes do fade para preto
+      var INKX_OPACIDADE_VIDRO = 0.55;            // opacidade da camada tela_vidro.webp (0 a 1)
+      var INKX_OPACIDADE_LCD = 0.55;              // opacidade da camada tela_lcd.webp (0 a 1)
+      var INKX_DURACAO_FADE_ENTRADA = 250;        // duração (ms) do fade-in de cada imagem ao aparecer
+      var INKX_DURACAO_FADE_PRETO = 600;          // duração (ms) da transição para a tela preta
+      var INKX_DURACAO_MENSAGEM = 1800;           // tempo (ms) que a logo + mensagem final ficam visíveis antes do redirecionamento
+      var INKX_STORAGE_KEY = 'inkx_signature_effect_done_v1'; // chave do localStorage (altere o sufixo "_v1" para resetar o efeito durante testes)
+
+      var footerLink = document.querySelector('a.footer');
+      if (!footerLink) return;
+
+      // Executar exclusivamente em dispositivos móveis/touch. No desktop, nada é alterado.
+      var isTouchDevice = !!(window.matchMedia && (
+        window.matchMedia('(pointer: coarse)').matches ||
+        ('ontouchstart' in window && window.matchMedia('(hover: none)').matches)
+      ));
+      if (!isTouchDevice) return;
+
+      // 1. Captura e preserva o href original do footer para o redirecionamento final.
+      var originalHref = footerLink.getAttribute('href');
+      if (!originalHref) return;
+
+      var isRunning = false;
+
+      function effectAlreadyPlayed() {
+        try { return localStorage.getItem(INKX_STORAGE_KEY) === '1'; }
+        catch (err) { return false; }
+      }
+
+      function markEffectAsPlayed() {
+        try { localStorage.setItem(INKX_STORAGE_KEY, '1'); } catch (err) {}
+      }
+
+      function prefersReducedMotion() {
+        return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      }
+
+      function lockScroll() {
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+      }
+
+      function unlockScroll() {
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+      }
+
+      function removeOverlay(overlay) {
+        if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+        unlockScroll();
+      }
+
+      function fadeIn(el) {
+        // Duas RAF garantem que o navegador registre a opacidade inicial (0)
+        // antes de aplicar o valor final, permitindo a transição do CSS.
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            el.style.opacity = el.dataset.targetOpacity;
+          });
+        });
+      }
+
+      function runInkxSignatureEffect() {
+        var reduced = prefersReducedMotion();
+
+        // 2. Bloqueia rolagem/interação com a página apenas durante a animação.
+        lockScroll();
+
+        // 2. Cria a camada fixa cobrindo 100vw x 100vh, acima de todo o conteúdo,
+        //    sem alterar o layout original da página.
+        var overlay = document.createElement('div');
+        overlay.id = 'inkx-effect-overlay';
+        overlay.style.setProperty('--inkx-fade', (reduced ? '0s' : (INKX_DURACAO_FADE_ENTRADA / 1000) + 's'));
+        overlay.style.setProperty('--inkx-black-fade', (reduced ? '0s' : (INKX_DURACAO_FADE_PRETO / 1000) + 's'));
+
+        // 3. Camada tela_vidro.webp (exibida imediatamente).
+        var glass = document.createElement('img');
+        glass.className = 'inkx-effect-layer';
+        glass.src = 'https://inkx.com.br/assets/tela_vidro.webp';
+        glass.alt = '';
+        glass.setAttribute('aria-hidden', 'true');
+        glass.dataset.targetOpacity = String(INKX_OPACIDADE_VIDRO);
+        overlay.appendChild(glass);
+
+        // 4. Camada tela_lcd.webp (sobreposta ~80-150ms depois).
+        var lcd = document.createElement('img');
+        lcd.className = 'inkx-effect-layer';
+        lcd.src = 'https://inkx.com.br/assets/tela_lcd.webp';
+        lcd.alt = '';
+        lcd.setAttribute('aria-hidden', 'true');
+        lcd.dataset.targetOpacity = String(INKX_OPACIDADE_LCD);
+        overlay.appendChild(lcd);
+
+        // 7/8. Tela preta com logo e mensagem final.
+        var black = document.createElement('div');
+        black.className = 'inkx-effect-black';
+
+        var logo = document.createElement('img');
+        logo.className = 'inkx-effect-logo';
+        logo.src = 'https://inkx.com.br/assets/logo.png';
+        logo.alt = 'INKX';
+        black.appendChild(logo);
+
+        var title = document.createElement('div');
+        title.className = 'inkx-effect-title';
+        title.textContent = 'QUEBRANDO A CONCORRÊNCIA';
+        black.appendChild(title);
+
+        var subtitle = document.createElement('div');
+        subtitle.className = 'inkx-effect-subtitle';
+        subtitle.textContent = 'A concorrência vai ficar com a mesma cara que vc estava agora pouco.';
+        black.appendChild(subtitle);
+
+        overlay.appendChild(black);
+        document.body.appendChild(overlay);
+
+        var delayLcd = reduced ? 0 : INKX_DELAY_TELA_LCD;
+        var duracaoTelas = reduced ? 400 : INKX_DURACAO_TELAS_QUEBRADAS;
+        var duracaoMensagem = reduced ? 500 : INKX_DURACAO_MENSAGEM;
+
+        // 3. Exibe tela_vidro.webp imediatamente.
+        fadeIn(glass);
+
+        // 4. Sobrepõe tela_lcd.webp após o atraso configurado.
+        setTimeout(function () {
+          fadeIn(lcd);
+
+          // 5/6. Após as telas ficarem visíveis juntas por ~2s, transição para preto.
+          setTimeout(function () {
+            black.style.opacity = '1';
+
+            // 9. Mantém a composição por uma breve pausa e redireciona.
+            setTimeout(function () {
+              removeOverlay(overlay);
+              window.location.href = originalHref;
+            }, duracaoMensagem);
+          }, duracaoTelas);
+        }, delayLcd);
+      }
+
+      footerLink.addEventListener('click', function (e) {
+        // Depois de registrado, novos toques funcionam normalmente (sem repetir a animação).
+        if (effectAlreadyPlayed()) return;
+
+        // Evita qualquer possibilidade de loop ou múltiplos disparos pelo mesmo toque.
+        if (isRunning) {
+          e.preventDefault();
+          return;
+        }
+
+        // No primeiro toque: impede temporariamente o comportamento padrão do link.
+        e.preventDefault();
+        isRunning = true;
+        markEffectAsPlayed();
+        runInkxSignatureEffect();
       });
     })();
   </script>
