@@ -32,12 +32,16 @@
   .btn-social { display: flex; align-items: center; justify-content: center; gap: 10px; height: 58px; border-radius: 18px; color: #FAEEDE; font-size: 15.5px; font-weight: 600; text-decoration: none; transition: transform 0.15s ease, box-shadow 0.15s ease; border: none; cursor: pointer; font-family: inherit; }
   .btn-social:active { transform: scale(0.96); }
   .btn-social svg { width: 22px; height: 22px; fill: currentColor; }
-  .btn-instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); box-shadow: 0 0 22px rgba(230, 104, 60, 0.55), 0 4px 16px rgba(0, 0, 0, 0.25); }
-  .btn-google-maps { background: #FAEEDE; color: #333333; border: 1px solid #e0e0e0; box-shadow: 0 0 18px rgba(255, 255, 255, 0.22), 0 4px 14px rgba(0, 0, 0, 0.2); }
-  .btn-catalogo { background: #0070f0; color: #ffda32; border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 0 18px rgba(0, 112, 240, 0.4), 0 4px 14px rgba(0, 0, 0, 0.2); }
+  /* Sombra padronizada para os 6 botões da grade: mesmo offset/blur, cor do glow acompanha cada botão */
+  .btn-instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); box-shadow: 0 0 20px rgba(230, 104, 60, 0.5), 0 4px 16px rgba(0, 0, 0, 0.25); }
+  .btn-google-maps { background: #FAEEDE; color: #333333; border: 1px solid #e0e0e0; box-shadow: 0 0 20px rgba(255, 255, 255, 0.22), 0 4px 16px rgba(0, 0, 0, 0.25); }
+  .btn-catalogo { background: #0070f0; color: #ffda32; border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 0 20px rgba(0, 112, 240, 0.4), 0 4px 16px rgba(0, 0, 0, 0.25); }
   .btn-catalogo svg { fill: #ffda32; }
-  .btn-avaliar { background: #FAEEDE; color: #333333; border: 1px solid #e0e0e0; box-shadow: 0 0 18px rgba(255, 255, 255, 0.22), 0 4px 14px rgba(0, 0, 0, 0.2); }
-  .review-area { grid-column: 2; grid-row: 3; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; padding-top: 4px; width: 100%; }
+  .btn-avaliar { background: #FAEEDE; color: #333333; border: 1px solid #e0e0e0; box-shadow: 0 0 20px rgba(255, 255, 255, 0.22), 0 4px 16px rgba(0, 0, 0, 0.25); }
+  .btn-promocao { background: linear-gradient(135deg, #C62828 0%, #8E0000 100%); color: #FFFFFF; border: 2px solid #FFD400; box-shadow: 0 0 20px rgba(230, 40, 30, 0.5), 0 4px 16px rgba(0, 0, 0, 0.25); }
+  .btn-promocao svg, .btn-compartilhe svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .btn-compartilhe { background: linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%); color: #FFFFFF; border: 2px solid #C4B5FD; box-shadow: 0 0 20px rgba(124, 58, 237, 0.5), 0 4px 16px rgba(0, 0, 0, 0.25); }
+  .review-area { grid-column: 2; grid-row: 4; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; padding-top: 4px; width: 100%; }
   .review-arrow { width: 22px; height: 24px; fill: #FFD400; filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35)); animation: bounce 1.6s ease-in-out infinite; align-self: center; }
   .review-labels { display: flex; flex-direction: column; gap: 0; }
   .review-title { font-size: 14px; font-weight: 600; color: #ffffff; letter-spacing: 0.2px; line-height: 1.05; }
@@ -93,11 +97,13 @@
     .logo.animate-in { transition-delay: 0.10s; }
     .btn-whatsapp.animate-in { transition-delay: 0.35s; }
     .social-title.animate-in { transition-delay: 0.55s; }
-    .btn-instagram.animate-in { transition-delay: 0.70s; }
-    .btn-google-maps.animate-in { transition-delay: 0.85s; }
-    .btn-catalogo.animate-in { transition-delay: 1.00s; }
-    .btn-avaliar.animate-in { transition-delay: 1.15s; }
-    .review-area.animate-in { transition-delay: 1.35s; }
+    .btn-promocao.animate-in { transition-delay: 0.70s; }
+    .btn-compartilhe.animate-in { transition-delay: 0.85s; }
+    .btn-instagram.animate-in { transition-delay: 1.00s; }
+    .btn-google-maps.animate-in { transition-delay: 1.15s; }
+    .btn-catalogo.animate-in { transition-delay: 1.30s; }
+    .btn-avaliar.animate-in { transition-delay: 1.45s; }
+    .review-area.animate-in { transition-delay: 1.65s; }
     .logo.animate-in .rosy-face-front img { transform-origin: center center; will-change: transform; animation: logoFloat 5.8s ease-in-out infinite; animation-delay: 1.5s; }
   }
   @keyframes logoFloat {
@@ -303,6 +309,26 @@
       </a>
       <p class="social-title">Sua Autoestima Sempre em Alta</p>
       <div class="social-grid">
+        <a class="btn-social btn-promocao" href="#" aria-label="Promoção">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <polyline points="20 12 20 22 4 22 4 12"></polyline>
+            <rect x="2" y="7" width="20" height="5"></rect>
+            <line x1="12" y1="22" x2="12" y2="7"></line>
+            <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+            <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+          </svg>
+          Promoção
+        </a>
+        <a class="btn-social btn-compartilhe" href="#" aria-label="Compartilhe">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+          Compartilhe
+        </a>
         <a class="btn-social btn-instagram" href="https://www.instagram.com/rosycosmeticos11/" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
           Instagram
@@ -421,7 +447,7 @@
     if (window.matchMedia('(max-width: 768px)').matches) {
       window.addEventListener('load', () => {
         setTimeout(() => {
-          ['.logo','.btn-whatsapp','.social-title','.btn-instagram','.btn-google-maps','.btn-catalogo','.btn-avaliar','.review-area'].forEach(s => {
+          ['.logo','.btn-whatsapp','.social-title','.btn-promocao','.btn-compartilhe','.btn-instagram','.btn-google-maps','.btn-catalogo','.btn-avaliar','.review-area'].forEach(s => {
             const el = document.querySelector(s); if (el) el.classList.add('animate-in');
           });
         }, 80);
