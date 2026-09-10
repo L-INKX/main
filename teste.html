@@ -40,7 +40,11 @@
   .btn-avaliar { background: #FAEEDE; color: #333333; border: 1px solid #e0e0e0; box-shadow: 0 0 20px rgba(255, 255, 255, 0.22), 0 4px 16px rgba(0, 0, 0, 0.25); }
   .btn-promocao { background: linear-gradient(135deg, #C62828 0%, #8E0000 100%); color: #FFFFFF; border: 2px solid #FFD400; box-shadow: 0 0 20px rgba(230, 40, 30, 0.5), 0 4px 16px rgba(0, 0, 0, 0.25); }
   .btn-promocao svg, .btn-compartilhe svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .btn-compartilhe { background: linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%); color: #FFFFFF; border: 2px solid #C4B5FD; box-shadow: 0 0 20px rgba(124, 58, 237, 0.5), 0 4px 16px rgba(0, 0, 0, 0.25); }
+  .btn-compartilhe { background: linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%); color: #FFFFFF; border: 2px solid #C4B5FD; box-shadow: 0 0 20px rgba(124, 58, 237, 0.5), 0 4px 16px rgba(0, 0, 0, 0.25); appearance: none; -webkit-appearance: none; }
+  .btn-compartilhe:focus-visible { outline: 3px solid rgba(255, 255, 255, 0.9); outline-offset: 3px; }
+  .share-toast { position: fixed; left: 50%; bottom: 28px; z-index: 10001; max-width: calc(100vw - 40px); padding: 12px 18px; border-radius: 999px; background: rgba(35, 20, 25, 0.94); color: #ffffff; font-size: 14px; font-weight: 700; text-align: center; box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3); opacity: 0; visibility: hidden; pointer-events: none; transform: translate(-50%, 12px); transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease; }
+  .share-toast.is-visible { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+  @media (prefers-reduced-motion: reduce) { .share-toast { transition: none; } }
   .review-area { grid-column: 2; grid-row: 4; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; padding-top: 4px; width: 100%; }
   .review-arrow { width: 22px; height: 24px; fill: #FFD400; filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35)); animation: bounce 1.6s ease-in-out infinite; align-self: center; }
   .review-labels { display: flex; flex-direction: column; gap: 0; }
@@ -319,7 +323,7 @@
           </svg>
           Promoção
         </a>
-        <a class="btn-social btn-compartilhe" href="#" aria-label="Compartilhe">
+        <button class="btn-social btn-compartilhe" id="shareButton" type="button" aria-label="Compartilhe esta página">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <circle cx="18" cy="5" r="3"></circle>
             <circle cx="6" cy="12" r="3"></circle>
@@ -328,7 +332,7 @@
             <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
           </svg>
           Compartilhe
-        </a>
+        </button>
         <a class="btn-social btn-instagram" href="https://www.instagram.com/rosycosmeticos11/" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
           Instagram
@@ -414,6 +418,8 @@
       <div class="footer-link">criado e mantido por inkx.com.br • 2026 • todos os direitos reservados</div>
     </a>
   </div>
+
+  <div id="shareToast" class="share-toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
   <!-- ==================== ESCAPE IN-APP BROWSER ==================== -->
   <div id="escape-overlay">
@@ -549,6 +555,90 @@
       document.addEventListener('visibilitychange', () => { paused = document.hidden; });
       renderReviewCard(avaliacoesRosy[index]);
       scheduleNext(LOGO_DURATION, flipToReview);
+    })();
+
+    // ===== COMPARTILHAMENTO NATIVO + FALLBACK =====
+    (() => {
+      const shareButton = document.getElementById('shareButton');
+      const toast = document.getElementById('shareToast');
+      if (!shareButton) return;
+
+      const SHARE_URL = window.location.href.split('#')[0];
+      const SHARE_TITLE = 'Rosy Cosméticos';
+      const SHARE_TEXT = 'Conheça a Rosy Cosméticos e confira nossas opções!';
+      let toastTimer = null;
+      let sharing = false;
+
+      function showToast(message) {
+        if (!toast) return;
+        toast.textContent = message;
+        toast.classList.add('is-visible');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 2200);
+      }
+
+      async function copyShareUrl() {
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(SHARE_URL);
+            return true;
+          }
+        } catch (_) {}
+
+        try {
+          const textarea = document.createElement('textarea');
+          textarea.value = SHARE_URL;
+          textarea.setAttribute('readonly', '');
+          textarea.style.position = 'fixed';
+          textarea.style.opacity = '0';
+          document.body.appendChild(textarea);
+          textarea.select();
+          textarea.setSelectionRange(0, textarea.value.length);
+          const copied = document.execCommand('copy');
+          textarea.remove();
+          return copied;
+        } catch (_) {
+          return false;
+        }
+      }
+
+      shareButton.addEventListener('click', async () => {
+        if (sharing) return;
+        sharing = true;
+        shareButton.setAttribute('aria-busy', 'true');
+
+        try {
+          // O compartilhamento nativo fica restrito a celulares/tablets.
+          // Alguns navegadores Chromium no desktop expõem navigator.share(),
+          // mas podem gerar RESULT_CODE_KILLED_BAD_MESSAGE ao tentar abri-lo.
+          const ua = navigator.userAgent || '';
+          const isIOS = /iPad|iPhone|iPod/i.test(ua) ||
+            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+          const isAndroid = /Android/i.test(ua);
+          const isMobileDevice = isIOS || isAndroid;
+
+          if (isMobileDevice && typeof navigator.share === 'function') {
+            try {
+              await navigator.share({
+                title: SHARE_TITLE,
+                text: SHARE_TEXT,
+                url: SHARE_URL
+              });
+              return;
+            } catch (error) {
+              // Se o usuário fechar a folha nativa, não mostra erro.
+              if (error && error.name === 'AbortError') return;
+            }
+          }
+
+          // Desktop e navegadores sem Share API: copia o link diretamente.
+          const copied = await copyShareUrl();
+          showToast(copied ? '✓ Link copiado!' : 'Não foi possível copiar o link.');
+        } finally {
+          sharing = false;
+          shareButton.removeAttribute('aria-busy');
+        }
+      });
     })();
 
     document.querySelectorAll('a[class*="btn"]').forEach(btn => {
