@@ -919,9 +919,27 @@
         document.body.style.overflow = '';
       }
 
-      function removeOverlay(overlay) {
+           function removeOverlay(overlay) {
         if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
         unlockScroll();
+      }
+
+      // Remove o overlay caso a página seja restaurada do bfcache (botão "voltar").
+      window.addEventListener('pageshow', function (e) {
+        if (e.persisted) {
+          var existing = document.getElementById('inkx-effect-overlay');
+          if (existing) removeOverlay(existing);
+        }
+      });
+
+      function fadeIn(el) {
+        // Duas RAF garantem que o navegador registre a opacidade inicial (0)
+        // antes de aplicar o valor final, permitindo a transição do CSS.
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            el.style.opacity = el.dataset.targetOpacity;
+          });
+        });
       }
 
       function fadeIn(el) {
