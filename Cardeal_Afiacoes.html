@@ -1,26 +1,1038 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Teste</title>
-    <style>
-        /* Faz o corpo da página ocupar toda a altura e largura da tela */
-        body, html {
-            height: 100%;
-            margin: 0;
-            display: flex;
-            justify-content: center; /* Centraliza na horizontal */
-            align-items: center;     /* Centraliza na vertical */
-            background-color: #f4f4f9; /* Apenas para dar uma cor de fundo suave */
-            font-family: Arial, sans-serif;
-            font-size: 2rem;         /* Aumenta um pouco o tamanho do texto */
-        }
-    </style>
+ <script>
+(function() {
+  const allowlist = []; // vazio = nada é preservado
+
+  const url = new URL(window.location.href);
+  const toKeep = new URLSearchParams();
+
+  allowlist.forEach(p => {
+    if (url.searchParams.has(p)) toKeep.set(p, url.searchParams.get(p));
+  });
+
+  const cleanSearch = toKeep.toString();
+  const clean = url.pathname + (cleanSearch ? '?' + cleanSearch : '') + url.hash;
+
+  if (clean !== url.pathname + url.search + url.hash) {
+    history.replaceState({}, document.title, clean);
+  }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Cardeal Afiações - Afiação de Alicates de Cutícula | Hortolândia-SP</title>
+<meta name="description" content="Afiação profissional de alicates de cutícula com coleta e entrega. Alicates afiados com corte preciso e máxima durabilidade. Atendimento de segunda a sexta, das 8h às 17h.">
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Ink X" />
+<meta property="og:locale" content="pt_BR" />
+<meta property="og:title" content="Cardeal Afiações - Afiação de Alicates de Cutícula" />
+<meta property="og:description" content="Afiação profissional de alicates de cutícula, com corte preciso e máxima durabilidade." />
+<meta property="og:url" content="https://inkx.me/Cardeal_Afiacoes.html" />
+<meta property="og:image" content="https://inkx.me/assets/ca/caog.webp" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Cardeal Afiações - amolação e afiação de alicates de cutícula" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #0D0D0D; color: #ffffff; overflow-x: hidden; }
+  body { position: relative; isolation: isolate; }
+  .container { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 24px 0 28px; max-width: 420px; margin: 0 auto; }
+  .logo { width: 100%; padding: 12px 0 8px; display: flex; justify-content: center; align-items: center; }
+  .logo img { width: 100%; max-width: 420px; height: auto; display: block; filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.25)); }
+  .buttons { width: 100%; display: flex; flex-direction: column; gap: 16px; flex: 1; justify-content: center; padding: 0 20px; }
+  .btn-whatsapp { display: flex; align-items: center; justify-content: center; gap: 13px; width: 100%; height: 64px; border-radius: 999px; background: #038A06; color: #ffffff; font-size: 18px; font-weight: 700; text-decoration: none; box-shadow: inset 0 0 0 2px rgba(186, 255, 201, 0.75), 0 0 22px rgba(100, 255, 140, 0.55), 0 5px 18px rgba(0, 0, 0, 0.28); transition: transform 0.15s ease, box-shadow 0.15s ease; }
+  .btn-whatsapp:active { transform: scale(0.97); box-shadow: inset 0 0 0 2px rgba(186, 255, 201, 0.6), 0 0 16px rgba(100, 255, 140, 0.4), 0 3px 12px rgba(0, 0, 0, 0.3); }
+  .btn-whatsapp svg { width: 26px; height: 26px; fill: #ffffff; }
+  .social-title { text-align: center; font-size: 14px; font-weight: 500; color: #ffffff; letter-spacing: -0.3px; margin: 4px 0 2px; opacity: 0.95; }
+  .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
+  .btn-social { display: flex; align-items: center; justify-content: center; gap: 10px; height: 58px; border-radius: 18px; color: #FAEEDE; font-size: 15.5px; font-weight: 600; text-decoration: none; transition: transform 0.15s ease, box-shadow 0.15s ease; border: none; cursor: pointer; font-family: inherit; }
+  .btn-social:active { transform: scale(0.96); }
+  .btn-social svg { width: 22px; height: 22px; fill: currentColor; }
+  /* Sombra padronizada para os 6 botões da grade: mesmo offset/blur, cor do glow acompanha cada botão */
+  .btn-instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); box-shadow: 0 0 20px rgba(230, 104, 60, 0.5), 0 4px 16px rgba(0, 0, 0, 0.25); }
+  .btn-google-maps { background: #FAEEDE; color: #333333; border: 1px solid #e0e0e0; box-shadow: 0 0 20px rgba(255, 255, 255, 0.22), 0 4px 16px rgba(0, 0, 0, 0.25); }
+  .btn-avaliar { background: #FAEEDE; color: #333333; border: 1px solid #e0e0e0; box-shadow: 0 0 20px rgba(255, 255, 255, 0.22), 0 4px 16px rgba(0, 0, 0, 0.25); }
+  .btn-promocao { background: linear-gradient(135deg, #F24405 0%, #A61103 100%); color: #FFFFFF; border: 2px solid #F28705; box-shadow: 0 0 20px rgba(242, 68, 5, 0.5), 0 4px 16px rgba(0, 0, 0, 0.25); }
+  .btn-promocao svg, .btn-compartilhe svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .btn-compartilhe { background: linear-gradient(135deg, #F28705 0%, #F25C05 100%); color: #FFFFFF; border: 2px solid #FBC98A; box-shadow: 0 0 20px rgba(242, 135, 5, 0.5), 0 4px 16px rgba(0, 0, 0, 0.25); appearance: none; -webkit-appearance: none; }
+  .btn-compartilhe:focus-visible { outline: 3px solid rgba(255, 255, 255, 0.9); outline-offset: 3px; }
+  .share-toast { position: fixed; left: 50%; bottom: 28px; z-index: 10001; max-width: calc(100vw - 40px); padding: 12px 18px; border-radius: 999px; background: rgba(35, 20, 25, 0.94); color: #ffffff; font-size: 14px; font-weight: 700; text-align: center; box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3); opacity: 0; visibility: hidden; pointer-events: none; transform: translate(-50%, 12px); transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease; }
+  .share-toast.is-visible { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+  @media (prefers-reduced-motion: reduce) { .share-toast { transition: none; } }
+  .review-area { grid-column: 2; grid-row: 3; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; padding-top: 4px; width: 100%; }
+  .review-arrow { width: 22px; height: 24px; fill: #FFD400; filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35)); animation: bounce 1.6s ease-in-out infinite; align-self: center; }
+  .review-labels { display: flex; flex-direction: column; gap: 0; }
+  .review-title { font-size: 14px; font-weight: 600; color: #ffffff; letter-spacing: 0.2px; line-height: 1.05; }
+  .review-text { font-size: 14px; font-weight: 600; color: #ffffff; letter-spacing: 0.2px; opacity: 0.95; line-height: 1.05; }
+  .review-stars { display: flex; gap: 4px; font-size: 22px; line-height: 1; color: #f4b400; filter: drop-shadow(0 2px 4px rgba(244, 180, 0, 0.6)); }
+  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+  .footer { margin-top: 36px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.25); width: 100%; text-align: center; text-decoration: none; color: inherit; display: block; cursor: pointer; padding-left: 20px; padding-right: 20px; }
+  .footer-brand { font-size: 11px; font-weight: 600; letter-spacing: 0.5px; color: rgba(255, 255, 255, 0.85); }
+  .footer-brand .inkx { letter-spacing: -0.5px; }
+  .footer-link { display: block; margin-top: 4px; font-size: 9px; color: rgba(255, 255, 255, 0.65); line-height: 1.4; }
+  .location-modal { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 22px; background: rgba(35, 10, 18, 0.58); backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.35s ease, visibility 0.35s ease; }
+  .location-modal.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
+  .location-modal-card { width: min(100%, 370px); padding: 27px 22px 22px; border-radius: 28px; background: rgba(255, 250, 247, 0.97); color: #3a2528; box-shadow: 0 24px 70px rgba(40, 8, 16, 0.38), 0 5px 24px rgba(255, 255, 255, 0.16); transform: translateY(24px) scale(0.94); opacity: 0; transition: transform 0.48s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease; position: relative; overflow: hidden; }
+  .location-modal.is-open .location-modal-card { transform: translateY(0) scale(1); opacity: 1; }
+  .location-modal-card::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 5px; background: linear-gradient(90deg, #A61103, #F24405, #A61103); }
+  .location-modal-close { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border: 0; border-radius: 50%; background: rgba(166, 17, 3, 0.12); color: #7c4a50; font-size: 24px; line-height: 1; cursor: pointer; transition: transform 0.2s ease, background 0.2s ease; }
+  .location-modal-close:active { transform: scale(0.9); }
+  .location-modal-icon { width: 58px; height: 58px; margin: 2px auto 12px; display: flex; align-items: center; justify-content: center; border-radius: 18px; background: linear-gradient(145deg, #A61103, #F24405); color: #fff; box-shadow: 0 8px 22px rgba(166, 17, 3, 0.28); }
+  .location-modal-icon svg { width: 29px; height: 29px; fill: currentColor; }
+  .location-modal-title { text-align: center; font-size: 21px; font-weight: 800; letter-spacing: -0.4px; margin-bottom: 5px; }
+  .location-modal-subtitle { text-align: center; font-size: 13px; color: #806a6d; margin-bottom: 19px; }
+  .location-options { display: flex; flex-direction: column; gap: 12px; }
+  .location-option { width: 100%; min-height: 64px; padding: 12px 18px; display: flex; align-items: center; justify-content: center; gap: 12px; border: none; border-radius: 18px; text-decoration: none; font-size: 16px; font-weight: 700; transition: transform 0.18s ease, box-shadow 0.18s ease; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18); }
+  .location-option:active { transform: scale(0.97); }
+  .location-option svg, .location-option img { display: block; flex-shrink: 0; }
+  .location-option-waze { background: #33CCFF; color: #ffffff; box-shadow: 0 0 22px rgba(51, 204, 255, 0.45), 0 4px 16px rgba(0, 0, 0, 0.2); }
+  .location-option-waze img { width: 36px; height: 36px; object-fit: contain; }
+  .location-option-uber { background: #000000; color: #ffffff; box-shadow: 0 0 18px rgba(0, 0, 0, 0.35), 0 4px 16px rgba(0, 0, 0, 0.25); }
+  .location-option-uber svg { width: 72px; height: 24px; }
+  .location-option-maps { background: #FAEEDE; color: #333333; border: 1px solid #e0e0e0; box-shadow: 0 0 18px rgba(255, 255, 255, 0.22), 0 4px 14px rgba(0, 0, 0, 0.2); }
+  .location-option-maps svg { width: 24px; height: 24px; }
+  .review-modal { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 22px; background: rgba(35, 10, 18, 0.58); backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.35s ease, visibility 0.35s ease; }
+  .review-modal.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
+  .review-modal-card { width: min(100%, 340px); padding: 28px 22px 24px; border-radius: 28px; background: rgba(255, 250, 247, 0.97); color: #3a2528; box-shadow: 0 24px 70px rgba(40, 8, 16, 0.38), 0 5px 24px rgba(255, 255, 255, 0.16); transform: translateY(24px) scale(0.94); opacity: 0; transition: transform 0.48s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease; position: relative; overflow: hidden; text-align: center; }
+  .review-modal.is-open .review-modal-card { transform: translateY(0) scale(1); opacity: 1; }
+  .review-modal-card::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 5px; background: linear-gradient(90deg, #A61103, #F24405, #A61103); }
+  .review-modal-close { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border: 0; border-radius: 50%; background: rgba(166, 17, 3, 0.12); color: #7c4a50; font-size: 24px; line-height: 1; cursor: pointer; transition: transform 0.2s ease, background 0.2s ease; }
+  .review-modal-close:active { transform: scale(0.9); }
+  .heart-progress { width: 72px; height: 66px; margin: 10px auto 18px; position: relative; }
+  .heart-progress svg { width: 72px; height: 66px; display: block; }
+  .heart-outline { position: absolute; inset: 0; fill: #ffffff; stroke: #F24405; stroke-width: 1.8; }
+  .heart-fill-wrapper { position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; overflow: hidden; transition: height 6s linear; }
+  .heart-fill-wrapper.is-filling { height: 100%; }
+  .heart-fill { position: absolute; bottom: 0; left: 0; fill: #F24405; }
+  .review-modal-title { font-size: 16.5px; font-weight: 700; color: #3a2528; line-height: 1.4; margin: 0 0 10px; letter-spacing: -0.2px; }
+  .review-modal-stars { font-size: 22px; letter-spacing: 3px; margin-bottom: 20px; line-height: 1; }
+  .btn-ir-avaliacao { display: block; width: 100%; padding: 15px 20px; border: none; border-radius: 16px; background: linear-gradient(135deg, #A61103, #F24405); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 6px 18px rgba(166, 17, 3, 0.4); transition: transform 0.15s ease, box-shadow 0.15s ease; }
+  .btn-ir-avaliacao:active { transform: scale(0.97); }
+  .promo-modal { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 22px; background: rgba(35, 10, 18, 0.58); backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.35s ease, visibility 0.35s ease; }
+  .promo-modal.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
+  .promo-modal-card { width: min(100%, 340px); padding: 28px 22px 24px; border-radius: 28px; background: rgba(255, 250, 247, 0.97); color: #3a2528; box-shadow: 0 24px 70px rgba(40, 8, 16, 0.38), 0 5px 24px rgba(255, 255, 255, 0.16); transform: translateY(24px) scale(0.94); opacity: 0; transition: transform 0.48s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease; position: relative; overflow: hidden; text-align: center; }
+  .promo-modal.is-open .promo-modal-card { transform: translateY(0) scale(1); opacity: 1; }
+  .promo-modal-card::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 5px; background: linear-gradient(90deg, #A61103, #F24405, #A61103); }
+  .promo-modal-close { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border: 0; border-radius: 50%; background: rgba(166, 17, 3, 0.12); color: #7c4a50; font-size: 24px; line-height: 1; cursor: pointer; transition: transform 0.2s ease, background 0.2s ease; }
+  .promo-modal-close:active { transform: scale(0.9); }
+  .promo-modal-icon { width: 64px; height: 64px; margin: 4px auto 16px; display: flex; align-items: center; justify-content: center; border-radius: 20px; background: linear-gradient(145deg, #A61103, #F24405); color: #fff; box-shadow: 0 8px 22px rgba(166, 17, 3, 0.3); }
+  .promo-modal-icon svg { width: 32px; height: 32px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .promo-modal-title { font-size: 20px; font-weight: 800; color: #3a2528; letter-spacing: -0.3px; margin: 0 0 14px; line-height: 1.25; }
+  .promo-modal-text { font-size: 14.5px; color: #5c4548; line-height: 1.55; margin: 0 0 12px; }
+  .promo-modal-text:last-of-type { margin-bottom: 0; }
+  .promo-modal-highlight { font-weight: 600; color: #A61103; }
+  @media (prefers-reduced-motion: reduce) { .location-modal, .location-modal-card, .location-option, .review-modal, .review-modal-card, .heart-fill-wrapper, .promo-modal, .promo-modal-card { transition: none; } }
+  @media (max-width: 768px) {
+    .logo, .btn-whatsapp, .social-title, .btn-social, .review-area { opacity: 0; transform: translateY(32px) scale(0.96); will-change: transform, opacity; }
+    .logo.animate-in, .btn-whatsapp.animate-in, .social-title.animate-in, .btn-social.animate-in, .review-area.animate-in { opacity: 1; transform: translateY(0) scale(1); transition: opacity 1.15s cubic-bezier(0.16, 1, 0.3, 1), transform 1.15s cubic-bezier(0.16, 1, 0.3, 1); }
+    .logo.animate-in { transition-delay: 0.10s; }
+    .btn-whatsapp.animate-in { transition-delay: 0.35s; }
+    .social-title.animate-in { transition-delay: 0.55s; }
+    .btn-promocao.animate-in { transition-delay: 0.70s; }
+    .btn-compartilhe.animate-in { transition-delay: 0.85s; }
+    .btn-instagram.animate-in { transition-delay: 1.00s; }
+    .btn-google-maps.animate-in { transition-delay: 1.15s; }
+    .btn-avaliar.animate-in { transition-delay: 1.30s; }
+    .review-area.animate-in { transition-delay: 1.50s; }
+    .logo.animate-in .rosy-face-front img { transform-origin: center center; will-change: transform; animation: logoFloat 5.8s ease-in-out infinite; animation-delay: 1.5s; }
+  }
+  @keyframes logoFloat {
+    0% { transform: rotateZ(-1deg) translateY(0); }
+    50% { transform: rotateZ(1deg) translateY(-3px); }
+    100% { transform: rotateZ(-1deg) translateY(0); }
+  }
+  @keyframes cardFloat {
+    0% { transform: scale(0.8) translateY(0); }
+    50% { transform: scale(0.8) translateY(-5px); }
+    100% { transform: scale(0.8) translateY(0); }
+  }
+
+  /* ===== Rosy Flip 3D ===== */
+  .rosy-flip-container { width: 100%; }
+  .rosy-face-back { display: none; }
+  @media (max-width: 768px) {
+    .rosy-flip-container { position: relative; width: 100%; max-width: 420px; height: var(--rosy-flip-height, 190px); perspective: 900px; -webkit-perspective: 900px; }
+    .rosy-flip-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; -webkit-transform-style: preserve-3d; transition: transform 0.85s cubic-bezier(0.33, 0.0, 0.2, 1); will-change: transform; }
+    .rosy-face-front, .rosy-face-back { position: absolute; inset: 0; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform-style: flat; -webkit-transform-style: flat; transform: translateZ(0.01px); -webkit-transform: translateZ(0.01px); display: flex; align-items: center; justify-content: center; }
+    .rosy-face-back { display: flex; transform: rotateY(180deg) translateZ(0.01px); -webkit-transform: rotateY(180deg) translateZ(0.01px); }
+    .rosy-face-front img { height: 100%; width: auto; max-width: 100%; object-fit: contain; }
+    .rosy-review-card { width: 100%; height: 100%; background: linear-gradient(160deg, #A61103 0%, #F24405 100%); border-radius: 24px; padding: 12px 14px 11px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.07) inset; display: flex; flex-direction: column; gap: 6px; color: #FAEEDE; overflow: hidden; transform: scale(0.8); transform-origin: center center; animation: cardFloat 4.8s ease-in-out infinite; }
+    .rosy-review-header { display: flex; align-items: center; gap: 8px; }
+    .rosy-review-card .rosy-review-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #FAEEDE; background: #FAEEDE; flex-shrink: 0; }
+    .rosy-review-name-wrap { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .rosy-review-name { font-size: 17px; font-weight: 700; color: #FAEEDE; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .rosy-review-stars { font-size: 25px; letter-spacing: 2.5px; color: #FFD400; line-height: 1; }
+    .rosy-review-text { font-size: 15px; line-height: 1.35; color: #FAEEDE; opacity: 0.95; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+    .rosy-review-footer { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 5px; border-top: 1px solid rgba(250, 238, 222, 0.2); }
+    .rosy-review-google { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; color: rgba(250, 238, 222, 0.85); letter-spacing: 0.2px; }
+    .rosy-review-google svg { width: 10px; height: 12px; }
+    .rosy-review-date { font-size: 11px; color: rgba(250, 238, 222, 0.65); white-space: nowrap; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rosy-flip-inner { transition: none !important; }
+    .rosy-review-card { animation: none !important; }
+  }
+
+  /* ===== ESCAPE OVERLAY (AZUL NEON IGUAL À IMAGEM) ===== */
+  #escape-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: rgba(3, 8, 22, 0.35);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  #escape-overlay.active {
+    display: flex;
+  }
+
+  #escape-card {
+    position: relative;
+    width: min(100%, 350px);
+    padding: 34px 22px 30px;
+    border-radius: 32px;
+    background: #030816;
+    color: #ffffff;
+    text-align: center;
+
+    /* Borda azul cyan neon com efeito glow */
+    border: 2px solid #00bfff;
+    box-shadow: 0 0 25px rgba(0, 191, 255, 0.45), 
+                inset 0 0 15px rgba(0, 191, 255, 0.2), 
+                0 20px 50px rgba(0, 0, 0, 0.8);
+  }
+
+  .escape-close {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    font-size: 22px;
+    color: #a0c4e8;
+    cursor: pointer;
+    line-height: 1;
+    transition: opacity 0.2s ease;
+  }
+
+  .escape-close:active {
+    opacity: 0.6;
+  }
+
+   /* Faixa com as logos dos navegadores (substitui o antigo ícone de avião) */
+  .escape-top-icon {
+    width: 100%;
+    max-width: 210px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .escape-top-icon .escape-browsers-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 4px 14px rgba(0, 136, 255, 0.35));
+  }
+
+  #escape-card h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 12px;
+    letter-spacing: -0.3px;
+  }
+
+  #escape-card p {
+    font-size: 14px;
+    color: #b3c5dd;
+    line-height: 1.45;
+    margin: 0 0 24px;
+    padding: 0 8px;
+  }
+
+  /* Botão principal azul retangular bem arredondado */
+  #escapeBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 52px;
+    border-radius: 26px;
+    background: #007bff;
+    color: #ffffff;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
+    transition: transform 0.15s ease, background-color 0.15s ease;
+  }
+
+  #escapeBtn:active {
+    transform: scale(0.97);
+    background: #0069d9;
+  }
+
+  /* ÍCONE DO BOTÃO – MAIOR */
+  #escapeBtn svg {
+    width: 26px;         
+    height: 26px;         
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Dica do rodapé */
+  #escape-hint {
+    margin-top: 26px;
+    font-size: 13px;
+    color: #8da4c4;
+    line-height: 1.5;
+  }
+
+  #escape-hint strong {
+    color: #ffffff;
+  }
+
+  /* ===== INKX - Efeito de assinatura (footer, apenas mobile/touch) ===== */
+  #inkx-effect-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2147483647;
+    overflow: hidden;
+    background: transparent;
+    -webkit-tap-highlight-color: transparent;
+  }
+  #inkx-effect-overlay .inkx-effect-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity var(--inkx-fade, 0.25s) ease;
+  }
+  /* tela_lcd.webp fica por baixo (atrás) de tela_vidro.webp na composição */
+  #inkx-effect-overlay .inkx-effect-glass { z-index: 2; }
+  #inkx-effect-overlay .inkx-effect-lcd { z-index: 1; }
+  #inkx-effect-overlay .inkx-effect-black {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    opacity: 0;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    padding: 24px;
+    padding-top: 12vh;
+    transition: opacity var(--inkx-black-fade, 0.6s) ease;
+  }
+  #inkx-effect-overlay .inkx-effect-logo {
+    max-width: 55%;
+    max-height: 22vh;
+    height: auto;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 22px;
+  }
+  #inkx-effect-overlay .inkx-effect-title {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    color: #ffffff;
+    margin-bottom: 8px;
+    line-height: 1.25;
+  }
+  #inkx-effect-overlay .inkx-effect-subtitle {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 320px;
+    line-height: 1.45;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #inkx-effect-overlay .inkx-effect-layer,
+    #inkx-effect-overlay .inkx-effect-black {
+      transition: none !important;
+    }
+  }
+</style>
 </head>
 <body>
+  <div class="container">
+    <div class="logo">
+      <div class="rosy-flip-container">
+        <div class="rosy-flip-inner" id="rosyFlipInner">
+          <div class="rosy-face-front">
+            <img src="https://inkx.me/assets/ca/ca.webp" alt="logo Cardeal Afiações" onerror="var f=document.createElement('div'); f.textContent='Cardeal Afiações'; f.style.cssText='font-size:28px;font-weight:800;letter-spacing:-0.5px;padding:20px;'; this.replaceWith(f);">
+          </div>
+          <div class="rosy-face-back">
+            <div class="rosy-review-card" id="rosyReviewCard"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="buttons">
+      <a class="btn-whatsapp" href="https://wa.me/5519999446255?text=Ol%C3%A1%2C%20vim%20atrav%C3%A9s%20do%20link.%0AGostaria%20de%20fazer%20or%C3%A7amento." target="_blank" rel="noopener noreferrer">
+        <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 720" aria-hidden="true">
+          <defs>
+            <style>
+              .cls-1 {
+                fill: #fff;
+              }
+            </style>
+          </defs>
+          <path class="cls-1" d="M360,0C161.18,0,0,161.18,0,360c0,65.41,17.45,126.75,47.94,179.61L0,720l187.02-44.21c51.34,28.18,110.28,44.21,172.98,44.21,198.82,0,360-161.18,360-360S558.82,0,360,0ZM360,655.52c-60.17,0-116.13-17.98-162.82-48.87l-110.49,28.14,30.99-105.61c-33.53-47.93-53.2-106.26-53.2-169.19,0-163.21,132.31-295.52,295.52-295.52s295.52,132.31,295.52,295.52-132.31,295.52-295.52,295.52Z"/>
+          <path class="cls-1" d="M444.35,407.52l87.1,41.06c4,1.88,6.56,5.94,6.2,10.34-.94,11.46-5.54,34.43-26.13,55.02-58.12,58.12-162.49-7.64-166.74-10.18-25.67-13.79-50.06-32.24-73.19-55.36s-41.58-47.52-55.37-73.19c-2.55-4.24-68.31-108.61-10.18-166.74,20.59-20.59,43.56-25.19,55.02-26.13,4.41-.36,8.46,2.2,10.34,6.2l41.07,87.1c1.94,4.12,1.09,9.02-2.13,12.24l-30.61,30.61c-6.62,6.62-8.56,16.93-4,25.11,11.17,20.03,26.19,39.32,43.59,57.07,17.75,17.4,37.04,32.43,57.07,43.59,8.18,4.56,18.48,2.62,25.11-4l30.61-30.61c3.22-3.22,8.12-4.08,12.24-2.13Z"/>
+        </svg>
+        Atendimento WhatsApp
+      </a>
+      <p class="social-title">Afiação Profissional de Alicates de Cutícula</p>
+      <div class="social-grid">
+        <button class="btn-social btn-promocao" id="promoButton" type="button" aria-label="Promoção" aria-haspopup="dialog" aria-controls="promoModal">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <polyline points="20 12 20 22 4 22 4 12"></polyline>
+            <rect x="2" y="7" width="20" height="5"></rect>
+            <line x1="12" y1="22" x2="12" y2="7"></line>
+            <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+            <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+          </svg>
+          Promoção
+        </button>
+        <button class="btn-social btn-compartilhe" id="shareButton" type="button" aria-label="Compartilhe esta página">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+          Compartilhe
+        </button>
+        <a class="btn-social btn-instagram" href="https://www.instagram.com/cardealafia/" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          Instagram
+        </a>
+        <button class="btn-social btn-google-maps" id="locationButton" type="button" aria-haspopup="dialog" aria-controls="locationModal">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
+          Localização
+        </button>
+        <a class="btn-social btn-avaliar" href="https://g.page/r/CZazyaE5SSa1EBE/review" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="22" height="22">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
+          Avalie no Google
+        </a>
+        <div class="review-area">
+          <svg class="review-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l8 8h-5v8h-6v-8H4z"/></svg>
+          <div class="review-labels">
+            <p class="review-title">Nos conhece?</p>
+            <p class="review-text">Avalie-nos com</p>
+          </div>
+          <div class="review-stars" aria-label="5 estrelas"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        </div>
+      </div>
+    </div>
 
-    teste
+    <div class="location-modal" id="locationModal" role="dialog" aria-modal="true" aria-labelledby="locationModalTitle" aria-hidden="true">
+      <div class="location-modal-card" role="document">
+        <button class="location-modal-close" id="locationModalClose" type="button" aria-label="Fechar">×</button>
+        <div class="location-modal-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 2C7.59 2 4 5.59 4 10c0 5.55 7.09 11.34 7.39 11.58a.94.94 0 0 0 1.22 0C12.91 21.34 20 15.55 20 10c0-4.41-3.59-8-8-8zm0 11.1a3.1 3.1 0 1 1 0-6.2 3.1 3.1 0 0 1 0 6.2z"/></svg>
+        </div>
+        <h2 class="location-modal-title" id="locationModalTitle">Como você quer chegar?</h2>
+        <p class="location-modal-subtitle">Escolha seu aplicativo de navegação<br><strong>Atendimento: seg. a sex., das 8h às 17h</strong></p>
+        <div class="location-options">
+          <a class="location-option location-option-waze" href="https://waze.com/ul?ll=-22.8796852,-47.1682143&navigate=yes" target="_blank" rel="noopener noreferrer">
+            <img src="assets/waze.png" alt="Waze" onerror="this.style.display='none'"> Waze
+          </a>
+          <a class="location-option location-option-uber" href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff%5Blatitude%5D=-22.8796852&dropoff%5Blongitude%5D=-47.1682143&dropoff%5Bnickname%5D=Cardeal%20afia%C3%A7%C3%B5es" target="_blank" rel="noopener noreferrer">
+            <svg width="72" height="24" viewBox="0 0 72 24" aria-hidden="true"><text x="36" y="17.5" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="-0.5" fill="#FFFFFF">Uber</text></svg>
+          </a>
+          <a class="location-option location-option-maps" href="https://maps.app.goo.gl/63nwLMamKqB2fpry6" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true" width="24" height="24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+            </svg>
+            Google Maps
+          </a>
+        </div>
+      </div>
+    </div>
 
+    <div class="review-modal" id="reviewModal" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="review-modal-card" role="document">
+        <button class="review-modal-close" id="reviewModalClose" type="button" aria-label="Fechar">×</button>
+        <div class="heart-progress">
+          <svg class="heart-outline" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          <div class="heart-fill-wrapper" id="heartFill">
+            <svg class="heart-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </div>
+        </div>
+        <h2 class="review-modal-title">Ajude-nos a continuar fazendo o nosso melhor.<br>Avalie com responsabilidade e, se gostou, nos presenteie com 5 estrelas!</h2>
+        <div class="review-modal-stars">⭐⭐⭐⭐⭐</div>
+        <button class="btn-ir-avaliacao" id="btnIrAvaliacao" type="button">Ir para avaliação</button>
+      </div>
+    </div>
+
+    <div class="promo-modal" id="promoModal" role="dialog" aria-modal="true" aria-labelledby="promoModalTitle" aria-hidden="true">
+      <div class="promo-modal-card" role="document">
+        <button class="promo-modal-close" id="promoModalClose" type="button" aria-label="Fechar">×</button>
+        <div class="promo-modal-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="8" width="18" height="13" rx="2"></rect>
+            <path d="M12 8v13"></path>
+            <path d="M3 12h18"></path>
+            <path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8"></path>
+            <path d="M16.5 8a2.5 2.5 0 0 0 0-5C13 3 12 8 12 8"></path>
+          </svg>
+        </div>
+        <h2 class="promo-modal-title" id="promoModalTitle">Promoção em Preparação</h2>
+        <p class="promo-modal-text">Por enquanto, não temos nenhuma promoção ativa em nossos serviços de afiação. Mas fique de olho! As novidades costumam aparecer quando a gente menos espera.</p>
+        <p class="promo-modal-text"><span class="promo-modal-highlight">Siga nossas redes sociais</span> para não perder as próximas!</p>
+      </div>
+    </div>
+
+    <a class="footer" href="https://inkx.com.br/parcerias" target="_blank" rel="noopener noreferrer">
+      <div class="footer-brand"><span class="inkx">INKX</span> | parcerias</div>
+      <div class="footer-link">criado e mantido por inkx.com.br • 2026 • todos os direitos reservados</div>
+    </a>
+  </div>
+
+  <div id="shareToast" class="share-toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ==================== ESCAPE IN-APP BROWSER ==================== -->
+  <div id="escape-overlay">
+    <div id="escape-card">
+      <span class="escape-close" onclick="document.getElementById('escape-overlay').classList.remove('active')">✕</span>
+      
+      <!-- Ícone de Avião no Topo -->
+      <div class="escape-top-icon">
+        <img src="https://inkx.me/assets/browsers.webp" alt="Navegadores recomendados" class="escape-browsers-img">
+      </div>
+
+      <h2 id="escape-title">Abrir no Navegador Real</h2>
+      <p id="escape-subtitle">Você está no Instagram. Toque no botão para abrir no navegador real.</p>
+      
+      <!-- Botão com ícone de link externo -->
+      <button id="escapeBtn">
+        <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        <span>Abrir no Navegador Real</span>
+      </button>
+
+      <div id="escape-hint">
+        Ainda está aqui? O Navegador do Instagram<br>limita a experiência da página!<br>
+        Toque nos (três pontinhos) <strong>...</strong><br>
+        e escolha <strong>Abrir no navegador</strong>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== Scripts originais da página =====
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          ['.logo','.btn-whatsapp','.social-title','.btn-promocao','.btn-compartilhe','.btn-instagram','.btn-google-maps','.btn-avaliar','.review-area'].forEach(s => {
+            const el = document.querySelector(s); if (el) el.classList.add('animate-in');
+          });
+        }, 80);
+      });
+    }
+
+    (() => {
+      const modal = document.getElementById('locationModal');
+      const openButton = document.getElementById('locationButton');
+      const closeButton = document.getElementById('locationModalClose');
+      if (!modal || !openButton || !closeButton) return;
+      let lastFocusedElement = null;
+      function openLocationModal() { lastFocusedElement = document.activeElement; modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; setTimeout(() => closeButton.focus(), 80); }
+      function closeLocationModal() { modal.classList.remove('is-open'); modal.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; if (lastFocusedElement) lastFocusedElement.focus(); }
+      openButton.addEventListener('click', openLocationModal);
+      closeButton.addEventListener('click', closeLocationModal);
+      modal.addEventListener('click', (e) => { if (e.target === modal) closeLocationModal(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('is-open')) closeLocationModal(); });
+    })();
+
+    (() => {
+      const modal = document.getElementById('promoModal');
+      const openButton = document.getElementById('promoButton');
+      const closeButton = document.getElementById('promoModalClose');
+      if (!modal || !openButton || !closeButton) return;
+      let lastFocusedElement = null;
+      function openPromoModal() {
+        lastFocusedElement = document.activeElement;
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => closeButton.focus(), 80);
+      }
+      function closePromoModal() {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (lastFocusedElement) lastFocusedElement.focus();
+      }
+      openButton.addEventListener('click', openPromoModal);
+      closeButton.addEventListener('click', closePromoModal);
+      modal.addEventListener('click', (e) => { if (e.target === modal) closePromoModal(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('is-open')) closePromoModal(); });
+    })();
+
+    (() => {
+      const GOOGLE_REVIEW_URL = 'https://g.page/r/CZazyaE5SSa1EBE/review';
+      const DURATION = 6000;
+      const modal = document.getElementById('reviewModal');
+      const closeBtn = document.getElementById('reviewModalClose');
+      const goBtn = document.getElementById('btnIrAvaliacao');
+      const heartFill = document.getElementById('heartFill');
+      const avaliarBtn = document.querySelector('.btn-avaliar');
+      if (!modal || !avaliarBtn) return;
+      let timer = null; let hasRedirected = false;
+      function openReviewModal(e) { e.preventDefault(); hasRedirected = false; modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; heartFill.classList.remove('is-filling'); void heartFill.offsetWidth; heartFill.classList.add('is-filling'); clearTimeout(timer); timer = setTimeout(() => goToReview(), DURATION); }
+      function closeReviewModal() { modal.classList.remove('is-open'); modal.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; clearTimeout(timer); heartFill.classList.remove('is-filling'); }
+      function goToReview() { if (hasRedirected) return; hasRedirected = true; closeReviewModal(); window.location.href = GOOGLE_REVIEW_URL; }
+      avaliarBtn.addEventListener('click', openReviewModal);
+      goBtn.addEventListener('click', goToReview);
+      closeBtn.addEventListener('click', closeReviewModal);
+      modal.addEventListener('click', (e) => { if (e.target === modal) goToReview(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('is-open')) closeReviewModal(); });
+    })();
+
+    (() => {
+      const LOGO_DURATION = 6000;
+      const REVIEW_DURATION = 5000;
+      const FLIP_DURATION = 850;
+      const avaliacoesRosy = [
+        { nome: `Bia Romão`, foto: `https://inkx.me/assets/ca/c1.png`, estrelas: 5, texto: `Ótimo profissional e serviço de excelência !! Alicates afiados com longa durabilidade. Gratidão 🙏🏼`, data: `` },
+        { nome: `Assuncao Guimares`, foto: `https://inkx.me/assets/ca/c2.png`, estrelas: 5, texto: `O cara é super atencioso, pontual nas retiras e nas entregas, ótimo profissional e de confiança.😉👏`, data: `` },
+        { nome: `Aline Cardeal`, foto: `https://inkx.me/assets/ca/c3.png`, estrelas: 5, texto: `Muito caprichoso, organizado, simpático e muito cuidadoso com os nossos materiais de trabalho, super indico!`, data: `` },
+        { nome: `Tatiane Nascimento`, foto: `https://inkx.me/assets/ca/c4.png`, estrelas: 5, texto: `Ele é um profissional especular. Super indico.`, data: `` },
+        { nome: `Juan Pablo`, foto: `https://inkx.me/assets/ca/c5.png`, estrelas: 5, texto: `Ótima afiação, muito cuidado com os alicates e qualidade da afiação nota 10!`, data: `` }
+      ];
+      if (!window.matchMedia('(max-width: 768px)').matches) return;
+      const inner = document.getElementById('rosyFlipInner');
+      const card = document.getElementById('rosyReviewCard');
+      if (!inner || !card || avaliacoesRosy.length === 0) return;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduceMotion) return;
+      avaliacoesRosy.forEach(item => { const img = new Image(); img.src = item.foto; });
+      const googleIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>';
+      function renderReviewCard(item) {
+        const estrelas = '★'.repeat(item.estrelas) + '☆'.repeat(Math.max(0, 5 - item.estrelas));
+        card.innerHTML =
+          '<div class="rosy-review-header">' +
+            '<img class="rosy-review-avatar" src="' + item.foto + '" alt="" onerror="this.style.visibility=\'hidden\'">' +
+            '<div class="rosy-review-name-wrap">' +
+              '<span class="rosy-review-name">' + item.nome + '</span>' +
+              '<span class="rosy-review-stars">' + estrelas + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<p class="rosy-review-text">' + item.texto + '</p>' +
+          '<div class="rosy-review-footer">' +
+            '<span class="rosy-review-google">' + googleIcon + ' Google</span>' +
+            (item.data ? '<span class="rosy-review-date">' + item.data + '</span>' : '') +
+          '</div>';
+      }
+      let index = 0;
+      let cycleTimer = null;
+      let paused = false;
+      let showingLogo = true;
+      let rotation = 0;
+      function scheduleNext(delay, fn) {
+        clearTimeout(cycleTimer);
+        cycleTimer = setTimeout(() => { if (!paused) fn(); else scheduleNext(300, fn); }, delay);
+      }
+      function flipToReview() {
+        index = (index + 1) % avaliacoesRosy.length;
+        renderReviewCard(avaliacoesRosy[index]);
+        rotation += 180;
+        inner.style.transform = 'rotateY(' + rotation + 'deg)';
+        showingLogo = false;
+        scheduleNext(FLIP_DURATION + REVIEW_DURATION, flipToLogo);
+      }
+      function flipToLogo() {
+        rotation += 180;
+        inner.style.transform = 'rotateY(' + rotation + 'deg)';
+        showingLogo = true;
+        scheduleNext(FLIP_DURATION + LOGO_DURATION, flipToReview);
+      }
+      document.addEventListener('visibilitychange', () => { paused = document.hidden; });
+      renderReviewCard(avaliacoesRosy[index]);
+      scheduleNext(LOGO_DURATION, flipToReview);
+    })();
+
+    // ===== COMPARTILHAMENTO NATIVO + FALLBACK =====
+    (() => {
+      const shareButton = document.getElementById('shareButton');
+      const toast = document.getElementById('shareToast');
+      if (!shareButton) return;
+
+      const SHARE_URL = window.location.href.split('#')[0];
+      const SHARE_TITLE = 'Cardeal Afiações';
+      const SHARE_TEXT = 'Conheça a Cardeal Afiações e confira nossos serviços de afiação de alicates de cutícula!';
+      let toastTimer = null;
+      let sharing = false;
+
+      function showToast(message) {
+        if (!toast) return;
+        toast.textContent = message;
+        toast.classList.add('is-visible');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 2200);
+      }
+
+      async function copyShareUrl() {
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(SHARE_URL);
+            return true;
+          }
+        } catch (_) {}
+
+        try {
+          const textarea = document.createElement('textarea');
+          textarea.value = SHARE_URL;
+          textarea.setAttribute('readonly', '');
+          textarea.style.position = 'fixed';
+          textarea.style.opacity = '0';
+          document.body.appendChild(textarea);
+          textarea.select();
+          textarea.setSelectionRange(0, textarea.value.length);
+          const copied = document.execCommand('copy');
+          textarea.remove();
+          return copied;
+        } catch (_) {
+          return false;
+        }
+      }
+
+      shareButton.addEventListener('click', async () => {
+        if (sharing) return;
+        sharing = true;
+        shareButton.setAttribute('aria-busy', 'true');
+
+        try {
+          // O compartilhamento nativo fica restrito a celulares/tablets.
+          // Alguns navegadores Chromium no desktop expõem navigator.share(),
+          // mas podem gerar RESULT_CODE_KILLED_BAD_MESSAGE ao tentar abri-lo.
+          const ua = navigator.userAgent || '';
+          const isIOS = /iPad|iPhone|iPod/i.test(ua) ||
+            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+          const isAndroid = /Android/i.test(ua);
+          const isMobileDevice = isIOS || isAndroid;
+
+          if (isMobileDevice && typeof navigator.share === 'function') {
+            try {
+              await navigator.share({
+                title: SHARE_TITLE,
+                text: SHARE_TEXT,
+                url: SHARE_URL
+              });
+              return;
+            } catch (error) {
+              // Se o usuário fechar a folha nativa, não mostra erro.
+              if (error && error.name === 'AbortError') return;
+            }
+          }
+
+          // Desktop e navegadores sem Share API: copia o link diretamente.
+          const copied = await copyShareUrl();
+          showToast(copied ? '✓ Link copiado!' : 'Não foi possível copiar o link.');
+        } finally {
+          sharing = false;
+          shareButton.removeAttribute('aria-busy');
+        }
+      });
+    })();
+
+    document.querySelectorAll('a[class*="btn"]').forEach(btn => {
+      btn.addEventListener('touchstart', () => { btn.style.opacity = '0.9'; }, { passive: true });
+      btn.addEventListener('touchend', () => { btn.style.opacity = '1'; }, { passive: true });
+    });
+
+    // ===== ESCAPE IN-APP BROWSER (AGRESSIVO) =====
+    (function () {
+      const ua = (navigator.userAgent || navigator.vendor || window.opera || "").toLowerCase();
+      const currentUrl = window.location.href;
+      const encodedUrl = encodeURIComponent(currentUrl);
+
+      const isInstagram = ua.includes("instagram");
+      const isThreads   = ua.includes("barcelona");
+      const isFacebook  = ua.includes("fban") || ua.includes("fbav") || ua.includes("fb_iab") || ua.includes("fbios");
+      const isTikTok    = ua.includes("tiktok") || ua.includes("musical_ly") || ua.includes("bytedancewebview") || ua.includes("trill_");
+      const isAndroid   = ua.includes("android");
+      const isIOS       = /iphone|ipad|ipod/.test(ua);
+
+      const isInApp = isInstagram || isThreads || isFacebook || isTikTok;
+
+      if (!isInApp) return;
+
+      const overlay = document.getElementById("escape-overlay");
+      const title = document.getElementById("escape-title");
+      const subtitle = document.getElementById("escape-subtitle");
+      const btn = document.getElementById("escapeBtn");
+      const btnText = btn.querySelector("span");
+      const hint = document.getElementById("escape-hint");
+
+      overlay.classList.add("active");
+
+      if (isInstagram || isThreads) {
+        title.textContent = "Abrir no Navegador Real";
+        subtitle.textContent = "Você está no Instagram. Toque no botão para abrir no navegador real.";
+        if (btnText) btnText.textContent = "Abrir no Navegador Real";
+      } else if (isTikTok) {
+        title.textContent = "Sair do TikTok";
+        subtitle.textContent = "Você está no navegador do TikTok. Toque para abrir no navegador do celular.";
+        if (btnText) btnText.textContent = "Abrir no navegador";
+      } else if (isFacebook) {
+        title.textContent = "Abrir no navegador";
+        subtitle.textContent = "Você está no Facebook. Toque para continuar no navegador real.";
+        if (btnText) btnText.textContent = "Abrir no navegador";
+      }
+
+      function aggressiveEscape() {
+        if ((isInstagram || isThreads) && isIOS) {
+          window.location.href = `instagram://extbrowser/?url=${encodedUrl}`;
+        }
+
+        if (isAndroid) {
+          const intent = `intent://${currentUrl.replace(/^https?:\/\//, "")}#Intent;scheme=https;S.browser_fallback_url=${encodedUrl};end`;
+          window.location.href = intent;
+        }
+
+        if (isIOS) {
+          setTimeout(() => {
+            window.location.href = `x-safari-https://${currentUrl.replace(/^https?:\/\//, "")}`;
+          }, 280);
+        }
+
+        setTimeout(() => {
+          window.open(currentUrl, "_blank");
+        }, 550);
+
+        setTimeout(() => {
+          hint.innerHTML = `
+            Ainda está aqui?<br><br>
+            Toque nos <strong>(três pontinhos)</strong><br>
+            e escolha <strong>Abrir no navegador</strong>
+          `;
+          hint.style.color = "#ffffff";
+        }, 1300);
+      }
+
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        aggressiveEscape();
+      });
+    })();
+
+    // ===== INKX - EFEITO DE ASSINATURA (FOOTER, APENAS MOBILE/TOUCH) =====
+    (function () {
+      // ---- Constantes ajustáveis ----
+      var INKX_DELAY_TELA_LCD = 220;             // atraso (ms) entre tela_vidro.webp e tela_lcd.webp (faixa recomendada: 80-150ms)
+      var INKX_DURACAO_TELAS_QUEBRADAS = 2500;    // tempo (ms) que as duas telas ficam visíveis juntas antes do fade para preto
+      var INKX_OPACIDADE_VIDRO = 0.9;            // opacidade da camada tela_vidro.webp (0 a 1)
+      var INKX_OPACIDADE_LCD = 0.8;              // opacidade da camada tela_lcd.webp (0 a 1)
+      var INKX_DURACAO_FADE_ENTRADA = 50;        // duração (ms) do fade-in de cada imagem ao aparecer
+      var INKX_DURACAO_FADE_PRETO = 800;          // duração (ms) da transição para a tela preta
+      var INKX_DURACAO_MENSAGEM = 4000;           // tempo (ms) que a logo + mensagem final ficam visíveis antes do redirecionamento
+      var INKX_STORAGE_KEY = 'inkx_signature_effect_done_v1'; // chave do localStorage (altere o sufixo "_v1" para resetar o efeito durante testes)
+
+      var footerLink = document.querySelector('a.footer');
+      if (!footerLink) return;
+
+      // Executar exclusivamente em dispositivos móveis/touch. No desktop, nada é alterado.
+      var isTouchDevice = !!(window.matchMedia && (
+        window.matchMedia('(pointer: coarse)').matches ||
+        ('ontouchstart' in window && window.matchMedia('(hover: none)').matches)
+      ));
+      if (!isTouchDevice) return;
+
+      // 1. Captura e preserva o href original do footer para o redirecionamento final.
+      var originalHref = footerLink.getAttribute('href');
+      if (!originalHref) return;
+
+      var isRunning = false;
+
+      function effectAlreadyPlayed() {
+        return false; 
+		try { return localStorage.getItem(INKX_STORAGE_KEY) === '1'; }
+        catch (err) { return false; }
+      }
+
+      function markEffectAsPlayed() {
+        try { localStorage.setItem(INKX_STORAGE_KEY, '1'); } catch (err) {}
+      }
+
+      function prefersReducedMotion() {
+        return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      }
+
+      function lockScroll() {
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+      }
+
+      function unlockScroll() {
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+      }
+
+           function removeOverlay(overlay) {
+        if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+        unlockScroll();
+      }
+
+      // Remove o overlay caso a página seja restaurada do bfcache (botão "voltar").
+      window.addEventListener('pageshow', function (e) {
+        if (e.persisted) {
+          var existing = document.getElementById('inkx-effect-overlay');
+          if (existing) removeOverlay(existing);
+        }
+      });
+
+      function fadeIn(el) {
+        // Duas RAF garantem que o navegador registre a opacidade inicial (0)
+        // antes de aplicar o valor final, permitindo a transição do CSS.
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            el.style.opacity = el.dataset.targetOpacity;
+          });
+        });
+      }
+
+      function fadeIn(el) {
+        // Duas RAF garantem que o navegador registre a opacidade inicial (0)
+        // antes de aplicar o valor final, permitindo a transição do CSS.
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            el.style.opacity = el.dataset.targetOpacity;
+          });
+        });
+      }
+
+      function runInkxSignatureEffect() {
+        var reduced = prefersReducedMotion();
+
+        // 2. Bloqueia rolagem/interação com a página apenas durante a animação.
+        lockScroll();
+
+        // 2. Cria a camada fixa cobrindo 100vw x 100vh, acima de todo o conteúdo,
+        //    sem alterar o layout original da página.
+        var overlay = document.createElement('div');
+        overlay.id = 'inkx-effect-overlay';
+        overlay.style.setProperty('--inkx-fade', (reduced ? '0s' : (INKX_DURACAO_FADE_ENTRADA / 1000) + 's'));
+        overlay.style.setProperty('--inkx-black-fade', (reduced ? '0s' : (INKX_DURACAO_FADE_PRETO / 1000) + 's'));
+
+        // 3. Camada tela_vidro.webp (exibida imediatamente).
+        var glass = document.createElement('img');
+        glass.className = 'inkx-effect-layer inkx-effect-glass';
+        glass.src = 'https://inkx.com.br/assets/tela_vidro.webp';
+        glass.alt = '';
+        glass.setAttribute('aria-hidden', 'true');
+        glass.dataset.targetOpacity = String(INKX_OPACIDADE_VIDRO);
+        overlay.appendChild(glass);
+
+        // 4. Camada tela_lcd.webp (sobreposta ~80-150ms depois).
+        var lcd = document.createElement('img');
+        lcd.className = 'inkx-effect-layer inkx-effect-lcd';
+        lcd.src = 'https://inkx.com.br/assets/tela_lcd.webp';
+        lcd.alt = '';
+        lcd.setAttribute('aria-hidden', 'true');
+        lcd.dataset.targetOpacity = String(INKX_OPACIDADE_LCD);
+        overlay.appendChild(lcd);
+
+        // 7/8. Tela preta com logo e mensagem final.
+        var black = document.createElement('div');
+        black.className = 'inkx-effect-black';
+
+        var logo = document.createElement('img');
+        logo.className = 'inkx-effect-logo';
+        logo.src = 'https://inkx.com.br/assets/logo.png';
+        logo.alt = 'INKX';
+        black.appendChild(logo);
+
+        var title = document.createElement('div');
+        title.className = 'inkx-effect-title';
+        title.textContent = 'QUEBRANDO A CONCORRÊNCIA';
+        black.appendChild(title);
+
+        var subtitle = document.createElement('div');
+        subtitle.className = 'inkx-effect-subtitle';
+        subtitle.textContent = 'A concorrência vai ficar com a mesma cara que vc estava agora pouco.';
+        black.appendChild(subtitle);
+
+        overlay.appendChild(black);
+        document.body.appendChild(overlay);
+
+        var delayLcd = reduced ? 0 : INKX_DELAY_TELA_LCD;
+        var duracaoTelas = reduced ? 400 : INKX_DURACAO_TELAS_QUEBRADAS;
+        var duracaoMensagem = reduced ? 500 : INKX_DURACAO_MENSAGEM;
+
+        // 3. Exibe tela_vidro.webp imediatamente.
+        fadeIn(glass);
+
+        // 4. Sobrepõe tela_lcd.webp após o atraso configurado.
+        setTimeout(function () {
+          fadeIn(lcd);
+
+          // 5/6. Após as telas ficarem visíveis juntas por ~2s, transição para preto.
+          setTimeout(function () {
+            black.style.opacity = '1';
+
+            // 9. Mantém a composição por uma breve pausa e redireciona.
+            setTimeout(function () {
+            window.location.href = originalHref;
+            }, duracaoMensagem);
+          }, duracaoTelas);
+        }, delayLcd);
+      }
+
+      footerLink.addEventListener('click', function (e) {
+        // Depois de registrado, novos toques funcionam normalmente (sem repetir a animação).
+        if (effectAlreadyPlayed()) return;
+
+        // Evita qualquer possibilidade de loop ou múltiplos disparos pelo mesmo toque.
+        if (isRunning) {
+          e.preventDefault();
+          return;
+        }
+
+        // No primeiro toque: impede temporariamente o comportamento padrão do link.
+        e.preventDefault();
+        isRunning = true;
+        markEffectAsPlayed();
+        runInkxSignatureEffect();
+      });
+    })();
+  </script>
 </body>
 </html>
