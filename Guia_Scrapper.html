@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia Completo — Scraper de Avaliações Google Maps</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-soft: #161b22;
+    --bg-code: #1e242c;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-soft: #8b949e;
+    --accent: #58a6ff;
+    --accent-2: #3fb950;
+    --warn: #d29922;
+    --danger: #f85149;
+    --radius: 8px;
+    --font-mono: 'SF Mono', 'Fira Code', Consolas, 'Courier New', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    background: linear-gradient(135deg, #0d1117 0%, #1a2233 100%);
+    padding: 48px 24px 40px;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+  }
+  header h1 {
+    font-size: 2.2em;
+    font-weight: 700;
+    margin-bottom: 8px;
+    background: linear-gradient(90deg, #58a6ff, #3fb950);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  header p {
+    color: var(--text-soft);
+    font-size: 1.05em;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .badges {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  .badge {
+    background: var(--bg-code);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    color: var(--text-soft);
+  }
+
+  /* ===== LAYOUT ===== */
+  .layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 0;
+  }
+
+  /* ===== SIDEBAR ===== */
+  aside {
+    padding: 32px 20px;
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    background: var(--bg);
+  }
+  aside h3 {
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-soft);
+    margin-bottom: 16px;
+  }
+  aside nav a {
+    display: block;
+    padding: 8px 12px;
+    color: var(--text-soft);
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.9em;
+    transition: all 0.15s;
+    margin-bottom: 2px;
+  }
+  aside nav a:hover {
+    background: var(--bg-soft);
+    color: var(--accent);
+  }
+  aside nav a.active {
+    background: rgba(88, 166, 255, 0.1);
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* ===== MAIN ===== */
+  main {
+    padding: 40px 40px 80px;
+    max-width: 900px;
+    min-width: 0;
+  }
+
+  section {
+    margin-bottom: 56px;
+    scroll-margin-top: 24px;
+  }
+  section h2 {
+    font-size: 1.6em;
+    margin-bottom: 8px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+  section h2 .phase-num {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 0.7em;
+    padding: 2px 10px;
+    border-radius: 12px;
+    margin-right: 10px;
+    vertical-align: middle;
+    font-weight: 700;
+  }
+  section h3 {
+    font-size: 1.15em;
+    margin: 24px 0 12px;
+    color: var(--accent);
+  }
+
+  p { margin-bottom: 12px; color: var(--text); }
+  ul, ol { margin: 12px 0 16px 24px; color: var(--text); }
+  li { margin-bottom: 6px; }
+  strong { color: var(--text); font-weight: 600; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ===== CODE BLOCK ===== */
+  .code-block {
+    position: relative;
+    background: var(--bg-code);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin: 16px 0;
+    overflow: hidden;
+  }
+  .code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: rgba(0,0,0,0.25);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8em;
+    color: var(--text-soft);
+  }
+  .code-lang {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.75em;
+  }
+  .copy-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-soft);
+    padding: 4px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85em;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .copy-btn:hover {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+  }
+  .copy-btn.copied {
+    background: var(--accent-2);
+    color: var(--bg);
+    border-color: var(--accent-2);
+  }
+  pre {
+    padding: 16px;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    line-height: 1.5;
+    color: var(--text);
+    margin: 0;
+  }
+  code {
+    font-family: var(--font-mono);
+    background: var(--bg-code);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: #ffa657;
+    border: 1px solid var(--border);
+  }
+  pre code {
+    background: none;
+    padding: 0;
+    border: none;
+    color: inherit;
+    font-size: 1em;
+  }
+
+  /* ===== CALLOUTS ===== */
+  .callout {
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    margin: 16px 0;
+    border-left: 4px solid;
+    background: var(--bg-soft);
+    font-size: 0.95em;
+  }
+  .callout.info { border-color: var(--accent); }
+  .callout.warn { border-color: var(--warn); }
+  .callout.danger { border-color: var(--danger); }
+  .callout.success { border-color: var(--accent-2); }
+  .callout .callout-title {
+    font-weight: 700;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .callout.info .callout-title { color: var(--accent); }
+  .callout.warn .callout-title { color: var(--warn); }
+  .callout.danger .callout-title { color: var(--danger); }
+  .callout.success .callout-title { color: var(--accent-2); }
+
+  /* ===== TABLE ===== */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 0.9em;
+  }
+  th, td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    background: var(--bg-soft);
+    color: var(--text-soft);
+    font-weight: 600;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===== PROGRESS BAR ===== */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    width: 0%;
+    z-index: 1000;
+    transition: width 0.1s;
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+    aside {
+      position: static;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+    main { padding: 24px 20px 60px; }
+    header { padding: 32px 16px; }
+    header h1 { font-size: 1.6em; }
+  }
+
+  /* ===== BACK TO TOP ===== */
+  .back-top {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    display: none;
+    z-index: 999;
+  }
+  .back-top.show { display: block; }
+  .back-top:hover { transform: scale(1.1); }
+
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    border-top: 1px solid var(--border);
+    color: var(--text-soft);
+    font-size: 0.9em;
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<header>
+  <h1>🚀 Guia Completo — Scraper de Avaliações Google Maps</h1>
+  <p>Tutorial passo a passo para extrair avaliações 5 estrelas com foto de pessoas reais do Google Meu Negócio — do zero até o arquivo final.</p>
+  <div class="badges">
+    <span class="badge">Node.js + Puppeteer</span>
+    <span class="badge">8 Fases</span>
+    <span class="badge">Windows / PowerShell</span>
+    <span class="badge">Script tudo-em-um</span>
+  </div>
+</header>
+
+<div class="layout">
+  <aside>
+    <h3>Índice</h3>
+    <nav id="toc">
+      <a href="#fase1">1. Pré-requisitos</a>
+      <a href="#fase2">2. Baixar projeto</a>
+      <a href="#fase3">3. Correções no código</a>
+      <a href="#fase4">4. Ajustar config.yaml</a>
+      <a href="#fase5">5. Abrir Chrome debug</a>
+      <a href="#fase6">6. URL do negócio</a>
+      <a href="#fase7">7. Rodar scraper</a>
+      <a href="#fase8">8. Gerar TXT final</a>
+      <a href="#dicas">💡 Dicas finais</a>
+    </nav>
+  </aside>
+
+  <main>
+
+    <!-- ============ FASE 1 ============ -->
+    <section id="fase1">
+      <h2><span class="phase-num">FASE 1</span>Verificar pré-requisitos</h2>
+      <p>Abra o <strong>PowerShell</strong> e rode os comandos abaixo. O esperado é ver as versões instaladas.</p>
+
+      <div class="code-block">
+        <div class="code-header"><span class="code-lang">powershell</span><button class="copy-btn">Copiar</button></div>
+<pre><code>node -v
+npm -v
+git --version
+py --version</code></pre>
+      </div>
+
+      <p><strong>Versões mínimas:</strong></p>
+      <table>
+        <tr><th>Ferramenta</th><th>Versão mínima</th></tr>
+        <tr><td>Node.js</td><td>18+</td></tr>
+        <tr><td>npm</td><td>qualquer recente</td></tr>
+        <tr><td>Git</td><td>qualquer recente</td></tr>
+        <tr><td>Python</td><td>3.10+</td></tr>
+        <tr><td>Google Chrome</td><td>qualquer recente</td></tr>
+      </table>
+
+      <div class="callout warn">
+        <span class="callout-title">⚠️ Node.js não instalado?</span>
+        Baixe o instalador LTS em <a href="https://nodejs.org/pt-br/download" target="_blank">nodejs.org/pt-br/download</a>. Se o npm reclamar de <code>ExecutionPolicy</code>, rode:<br>
+        <code>Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned</code>
+      </div>
+    </section>
+
+    <!-- ============ FASE 2 ============ -->
+    <section id="fase2">
+      <h2><span class="phase-num">FASE 2</span>Baixar o projeto do zero</h2>
+      <p>Cole no PowerShell. Vai demorar ~5 minutos (baixa Puppeteer + Chromium).</p>
+
+      <div class="code-block">
+        <div class="code-header"><span class="code-lang">powershell</span><button class="copy-btn">Copiar</button></div>
+<pre><code>cd C:\Users\Roberto
+mkdir scraper-google -Force
+cd scraper-google
+git clone https://github.com/Petey1337/google-review-scraper.git .
+npm install
+npm install puppeteer
+npx puppeteer browsers install chrome</code></pre>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-title">💡 Já tem o projeto?</span>
+        Se a pasta <code>scraper-google</code> já existe com <code>scraper.js</code> e <code>package.json</code>, pule direto para a <a href="#fase3">FASE 3</a>.
+      </div>
+    </section>
+
+    <!-- ============ FASE 3 ============ -->
+    <section id="fase3">
+      <h2><span class="phase-num">FASE 3</span>Aplicar correções no <code>scraper.js</code></h2>
+      <p>Abra o arquivo no Bloco de Notas:</p>
+
+      <div class="code-block">
+        <div class="code-header"><span class="code-lang">powershell</span><button class="copy-btn">Copiar</button></div>
+<pre><code>notepad C:\Users\Roberto\scraper-google\scraper.js</code></pre>
+      </div>
+
+      <h3>3.1 — Corrigir <code>clickReviewsTab</code></h3>
+      <p>Ctrl+F → procure <code>async clickReviewsTab() {</code> e substitua <strong>todo</strong> o bloco por:</p>
+      <div class="code-block">
+        <div class="code-header"><span class="code-lang">javascript</span><button class="copy-btn">Copiar</button></div>
+<pre><code>  async clickReviewsTab() {
+    const spinner = display.startSpinner('Opening reviews tab...');
+    await utils.sleep(3000);
+
+    const clicked = await this.page.evaluate(() => {
+        let el = document.querySelector('button[aria-label*="Reviews"], button[aria-label*="Avaliações"]');
+        if (el) { el.click(); return 'aria-label'; }
+        const tabs = Array.from(document.querySelectorAll('button[role="tab"]'));
+        el = tabs.find(t => /Reviews|Avaliaç/i.test(t.textContent || ''));
+        if (el) { el.click(); return 'tab-text'; }
+        const buttons = Array.from(document.querySelectorAll('button'));
+        el = buttons.find(b => /Reviews?\b|Avaliaç/i.test((b.textContent || '').trim()));
+        if (el) { el.click(); return 'button-text'; }
+        return null;
+    });
+
+    if (!clicked) {
+        throw new Error('Reviews tab button not found on page');
+    }
+
+    await utils.sleep(2500);
+    display.succeedSpinner(`Reviews tab opened (via ${clicked})`);
+    this.logger.info('Reviews tab clicked');
+  }</code></pre>
+      </div>
+
+      <h3>3.2 — Corrigir <code>launchBrowser</code></h3>
+      <p>Procure <code>async launchBrowser() {</code> e substitua por:</p>
+      <div class="code-block">
+        <div class="code-header"><span class="code-lang">javascript</span><button class="copy-btn">Copiar</button></div>
+<pre><code>  async launchBrowser() {
+    const spinner = display.startSpinner('Launching browser...');
+    this.browser = await puppeteer.connect({
+      browserURL: 'http://127.0.0.1:9222',
+      defaultViewport: null
+    });
+    const pages = await this.browser.pages();
+    this.page = pages.length > 0 ? pages[0] : await this.browser.newPage();
+    if (this.config.blockResources) {
+      await this.page.setRequestInterception(true);
+      this.page.on('request', (req) => {
+        const type = req.resourceType();
+        if (['image', 'font', 'media'].includes(type)) {
+          req.abort();
+        } else {
+          req.continue();
+        }
+      });
+    }
+    display.succeedSpinner('Browser connected successfully');
+    this.logger.info('Connected to existing Chrome instance');
+  }</code></pre>
+      </div>
+
+      <h3>3.3 — Corrigir <code>navigateToUrl</code></h3>
+      <p>Procure <code>async navigateToUrl() {</code> e substitua por:</p>
+      <div class="code-block">
+        <div class="code-header"><span class="code-lang">javascript</span><button class="copy-btn">Copiar</button></div>
+<pre><code>  async navigateToUrl() {
+    const spinner = display.startSpinner('Navigating to Google Maps...');
+    await this.page.goto(this.config.url, {
+      waitUntil: 'domcontentloaded',
+      timeout: this.config.timeout
+    });
+
+    display.info('');
+    display.info('==============================================');
+    display.info('  PAUSA DE 3 MINUTOS PARA LOGIN MANUAL');
+    display.info('  1) Se aparecer login Google, entre na conta.');
+    display.info('  2) Se aparecer tela de cookies, clique Aceitar.');
+    display.info('  3) Depois disso, NAO mexa. O scraper continua.');
+    display.info('==============================================');
+    display.info('');
+
+    await utils.sleep(180000);
+
+    let businessName = 'Unknown Business';
+    try {
+      await this.page.waitForSelector('[role="main"]', { timeout: 15000 });
+      businessName = await this.page.evaluate(() => {
+        const heading = document.querySelector('h1');
+        return heading ? heading.textContent : 'Unknown Business';
+      });
+    } catch (e) {
+      display.warning('Nao achou [role="main"] — tentando continuar mesmo assim');
+    }
+
+    display.succeedSpinner(`Loaded: ${businessName}`);
+    this.logger.info(`Business: ${businessName}`);
+    this.config.businessName = businessName;
+  }</code></pre>
+      </div>
+
+      <h3>3.4 — Corrigir extração do <code>rating</code></h3>
+      <p>Procure <code>let rating = 0;</code> e substitua o bloco de 5 linhas por:</p>
+      <div class="code-block">
+        <div class="code-header"><span class="code-lang">javascript</span><button class="copy-btn">Copiar</button></div>
+<pre><code>          let rating = 0;
+          const ratingImgEl = review.querySelector('[role="img"][aria-label*="star"], [role="img"][aria-label*="estrela"]');
+          if (ratingImgEl) {
+            const label = ratingImgEl.getAttribute('aria-label') || '';
+            const m = label.match(/(\d+(?:[.,]\d+)?)/);
+            if (m) rating = Math.round(parseFloat(m[1].replace(',', '.')));
+          }
+          if (rating === 0) {
+            const ratingTextEl = review.querySelector('.fzvQIb');
+            if (ratingTextEl) {
+              const ratingText = ratingTextEl.textContent.trim();
+              const ratingMatch = ratingText.match(/(\d+)/);
+              rating = ratingMatch ? parseInt(ratingMatch[1]) : 0;
+            }
+          }
+          if (rating === 0) {
+            const stars = review.querySelectorAll('span[aria-label*="star"], span[aria-label*="estrela"]');
+            for (const s of stars) {
+              const lbl = s.getAttribute('aria-label') || '';
+              const m = lbl.match(/(\d+(?:[.,]\d+)?)/);
+              if (m) { rating = Math.round(parseFloat(m[1].replace(',', '.'))); break; }
+            }
+          }</code></pre>
+      </div>
+
+      <p><strong>Salve</strong> (Ctrl+S) e feche o Notepad. Depois valide:</p>
+      <div class="code-block">
+        <div class="code-header"><span class="code-lang">powershell</span><button class="copy-btn">Copiar</button></div>
+<pre><code>node --check scraper.js</code></pre>
+      </div>
+      <div class="callout success">
+        <span class="callout-title">✅ Silêncio = OK</span>
+        Se o comando não imprimir nada, a sintaxe está correta.
+      </div>
+    </section>
+
+    <!-- ============ FASE 4 ============ -->
+    <section id="fase4">
+      <h2><span class="phase-num">FASE 4</span>Ajustar <code>config.yaml</code></h2>
+      <div class="code-block">
+        <div class="code-header"><span class="code-lang">powershell</span><button class="copy-btn">Copiar</button></div>
+<pre><code>notepad C:\Users\Roberto\scraper-google\config.yaml</code></pre>
+      </div>
+      <p>Confirme que estes 3 valores estão assim:</p>
+      <div class="code-block">
+        <div class="code-header"><span class="code-lang">yaml</span><button class="copy-btn">Copiar</button></div>
+<pre><code>sortBy: "highest"
+scrollDelay: 2000
+blockResources: false</code></pre>
+      </div>
+      <p>Salve e feche.</p>
+    </section>
+
+    <!-- ============ FASE 5 ============ -->
+    <section id="fase5">
+      <h2><span class="phase-num">FASE 5</span>Abrir o Chrome com depuração</h2>
+      <div class="callout danger">
+        <span class="callout-title">⚠️ Feche TODAS as janelas do Chrome antes</span>
+        Se o Chrome já estiver aberto normalmente, o comando abaixo não vai ativar a porta de debug.
+      </div>
+
+      <p>Cole no PowerShell (uma linha só):</p>
+      <div class="code-block">
+        <div class="code-header"><span class="code-lang">powershell</span><button class="copy-btn">Copiar</button></div>
+<pre><code>&amp; "C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222 --user-data-dir="C:\Users\Roberto\scraper-google\chrome-profile" --no-first-run</code></pre>
+      </div>
+
+      <p>Uma janela do Chrome abre com uma aba em branco. <strong>Deixe aberta.</strong></p>
+
+      <p>Em outro PowerShell, teste a porta:</p>
+      <div class="code-block">
+        <div class="code-header"><span class="code-lang">powershell</span><button class="copy-btn">Copiar</button></div>
+<pre><code>Invoke-WebRequest -Uri "http://127.0.0.1:9222/json/version" -UseBasicParsing | Select-Object -ExpandProperty Content</code></pre>
+      </div>
+
+      <div class="callout success">
+        <span class="callout-title">✅ Esperado</span>
+        Um JSON com <code>"Browser": "Chrome/..."</code> e <code>"webSocketDebuggerUrl": "ws://..."</code>.
+      </div>
+    </section>
+
+    <!-- ============ FASE 6 ============ -->
+    <section id="fase6">
+      <h2><span class="phase-num">FASE 6</span>Pegar a URL do Google Meu Negócio</h2>
+      <ol>
+        <li>No Chrome de debug, abra o Google Maps.</li>
+        <li>Busque o <strong>nome do negócio</strong>.</li>
+        <li>Copie a URL <strong>longa</strong> da barra de endereços.</li>
+        <li>Garanta que termine com <code>?hl=en</code> (troque <code>&amp;hl=pt-BR</code> por <code>&amp;hl=en</code>).</li>
+      </ol>
+      <p><strong>Exemplo:</strong></p>
+      <div class="code-block">
+        <div class="code-header"><span class="code-lang">url</span><button class="copy-btn">Copiar</button></div>
+<pre><code>https://www.google.com/maps/place/Nome+do+Negocio/data=!4m7!...?hl=en</code></pre>
+      </div>
+    </section>
+
+    <!-- ============ FASE 7 ============ -->
+    <section id="fase7">
+      <h2><span class="phase-num">FASE 7</span>Rodar o scraper</h2>
+      <p>No PowerShell original (não o do Chrome), rode:</p>
+      <div class="code-block">
+        <div class="code-header"><span class="code-lang">powershell</span><button class="copy-btn">Copiar</button></div>
+<pre><code>cd C:\Users\Roberto\scraper-google
+node scraper.js</code></pre>
+      </div>
+
+      <p>Responda o wizard:</p>
+      <table>
+        <tr><th>Pergunta</th><th>Resposta</th></tr>
+        <tr><td>How would you like to configure?</td><td><strong>Manual configuration (interactive wizard)</strong></td></tr>
+        <tr><td>Enter Google Maps URL</td><td>Cole a URL com <code>?hl=en</code></td></tr>
+        <tr><td>Sort reviews by</td><td><strong>⭐ Highest Rating</strong></td></tr>
+        <tr><td>Download review images?</td><td><strong>Yes</strong></td></tr>
+        <tr><td>Run in headless mode?</td><td><strong>n</strong></td></tr>
+      </table>
+
+      <div class="callout warn">
+        <span class="callout-title">⏳ Durante a pausa de 3 minutos</span>
+        Vá para a janela do Chrome. Se aparecer login Google, faça login. Se aparecer tela de cookies, clique <strong>Aceitar tudo</strong>. Não feche a janela.
+      </div>
+
+      <p>Depois da pausa, o scraper continua sozinho:</p>
+      <ul>
+        <li><code>Reviews tab opened (via ...)</code></li>
+        <li><code>Progress: 30/72... → 72/72 ✅</code></li>
+        <li>Baixa imagens e salva em <code>data\&lt;data-hora&gt;\</code></li>
+      </ul>
+    </section>
+
+    <!-- ============ FASE 8 ============ -->
+    <section id="fase8">
+      <h2><span class="phase-num">FASE 8</span>Gerar o TXT final (script tudo-em-um)</h2>
+      <p>Cole este comando <strong>uma vez</strong> no PowerShell. Ele renomeia as fotos e gera o TXT final:</p>
+
+      <div class="code-block">
+        <div class="code-header"><span class="code-lang">powershell</span><button class="copy-btn">Copiar</button></div>
+<pre><code># ============================================
+# SCRIPT TUDO-EM-UM
+# ============================================
+$N = 10  # numero de avaliacoes no TXT
+
+$latest = Get-ChildItem data | Sort-Object LastWriteTime -Descending | Select-Object -First 1 -ExpandProperty Name
+$runDir = "data\$latest"
+$reviews = Get-Content "$runDir\reviews.json" -Raw -Encoding UTF8 | ConvertFrom-Json
+
+$origem  = "$runDir\images\profiles"
+$destino = "$runDir\images\perfis-nomeados"
+New-Item -ItemType Directory -Path $destino -Force | Out-Null
+
+$copiadas = 0
+foreach ($r in $reviews) {
+    if (-not $r.profilePictureLocal) { continue }
+    if (-not (Test-Path $r.profilePictureLocal)) { continue }
+    $nome = ($r.name -replace '[\\/:*?"<>|]', '_').Trim()
+    $novoNome = ("{0:D2} - {1}.jpg" -f $r.rating, $nome)
+    Copy-Item -Path $r.profilePictureLocal -Destination (Join-Path $destino $novoNome) -Force
+    $copiadas++
+}
+
+$top = $reviews | Select-Object -First $N
+$txt = "$runDir\avaliacoes-final.txt"
+$linhas = @()
+foreach ($r in $top) {
+    $linhas += "Foto do cliente = $($r.profilePicture)"
+    $linhas += "Nome do Cliente: $($r.name)"
+    $linhas += "Avaliação do cliente: $($r.text)"
+    $linhas += "----------"
+}
+$linhas | Out-File -FilePath $txt -Encoding UTF8
+
+Write-Host ""
+Write-Host "============================================"
+Write-Host "  TUDO PRONTO"
+Write-Host "============================================"
+Write-Host "Pasta:            $runDir"
+Write-Host "Fotos nomeadas:   $destino ($copiadas arquivos)"
+Write-Host "TXT final:        $txt ($($top.Count) avaliacoes)"
+Write-Host "============================================"</code></pre>
+      </div>
+
+      <p><strong>Resultado:</strong></p>
+      <ul>
+        <li>Pasta <code>perfis-nomeados/</code> com fotos renomeadas para <code>[rating] - [Nome].jpg</code></li>
+        <li>Arquivo <code>avaliacoes-final.txt</code> no formato pedido</li>
+      </ul>
+
+      <h3>Abrir os resultados</h3>
+      <div class="code-block">
+        <div class="code-header"><span class="code-lang">powershell</span><button class="copy-btn">Copiar</button></div>
+<pre><code>notepad "C:\Users\Roberto\scraper-google\data\2026-09-15_XX-XX\avaliacoes-final.txt"
+explorer "C:\Users\Roberto\scraper-google\data\2026-09-15_XX-XX\images\perfis-nomeados"</code></pre>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-title">💡 Formato do TXT gerado</span>
+        <pre style="background:transparent; padding:0; border:none; font-size:0.9em; margin-top:8px;"><code>Foto do cliente = https://lh3.googleusercontent.com/...
+Nome do Cliente: Nágila Viegas
+Avaliação do cliente: A equipe é super atenciosa...
+----------
+Foto do cliente = https://lh3.googleusercontent.com/...
+Nome do Cliente: Daiane Vitorino Lellis
+Avaliação do cliente: Conheci a focinho mimado...
+----------
+(repetido 10x)</code></pre>
+      </div>
+    </section>
+
+    <!-- ============ DICAS ============ -->
+    <section id="dicas">
+      <h2>💡 Dicas finais</h2>
+      <ul>
+        <li><strong>A pasta <code>data\</code></strong> acumula um subdiretório por execução. Para limpar resultados antigos: <code>Remove-Item -Recurse -Force .\data</code></li>
+        <li><strong>O perfil <code>chrome-profile\</code></strong> guarda seu login. Se o Google voltar a bloquear, apague e faça login de novo.</li>
+        <li><strong>Se a pausa de 3 min não bastar</strong>, aumente <code>180000</code> (3 min) para <code>300000</code> (5 min) no <code>navigateToUrl</code>.</li>
+        <li><strong>Para pegar mais avaliações</strong>, aumente <code>maxScrolls</code> no <code>config.yaml</code> (ex.: 500).</li>
+        <li><strong>Para mudar a quantidade no TXT final</strong>, altere <code>$N = 10</code> no script tudo-em-um.</li>
+      </ul>
+
+      <h3>Bônus — salvar como script reutilizável</h3>
+      <p>Salve o script tudo-em-um em <code>C:\Users\Roberto\scraper-google\gerar-txt.ps1</code> e rode sempre com:</p>
+      <div class="code-block">
+        <div class="code-header"><span class="code-lang">powershell</span><button class="copy-btn">Copiar</button></div>
+<pre><code>cd C:\Users\Roberto\scraper-google
+.\gerar-txt.ps1</code></pre>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<button class="back-top" id="backTop" title="Voltar ao topo">↑</button>
+
+<footer>
+  Guia gerado para uso pessoal — Scraper de Avaliações Google Maps + Puppeteer<br>
+  <span style="opacity:0.6;">Sempre respeite os Termos de Serviço do Google.</span>
+</footer>
+
+<script>
+// ===== Copiar código =====
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const pre = btn.closest('.code-block').querySelector('pre');
+    const text = pre.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      const original = btn.textContent;
+      btn.textContent = '✓ Copiado!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.classList.remove('copied');
+      }, 1500);
+    }).catch(err => {
+      console.error('Erro ao copiar:', err);
+      btn.textContent = '❌ Erro';
+    });
+  });
+});
+
+// ===== Barra de progresso =====
+const progressBar = document.getElementById('progressBar');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const scrolled = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  progressBar.style.width = scrolled + '%';
+});
+
+// ===== Scroll spy (destacar link ativo) =====
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('#toc a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(sec => {
+    const top = sec.offsetTop - 100;
+    if (window.scrollY >= top) current = sec.id;
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+  });
+});
+
+// ===== Back to top =====
+const backTop = document.getElementById('backTop');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 400) backTop.classList.add('show');
+  else backTop.classList.remove('show');
+});
+backTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+
+</body>
+</html>
