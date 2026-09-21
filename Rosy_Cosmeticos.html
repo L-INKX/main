@@ -891,7 +891,7 @@
       var isRunning = false;
 
       function effectAlreadyPlayed() {
-        return false; 
+        return ; // <-- return false; para repetir sempre o efeito de tela quebrada. se tirar o false o efeito ocorre uma vez só.
 		try { return localStorage.getItem(INKX_STORAGE_KEY) === '1'; }
         catch (err) { return false; }
       }
