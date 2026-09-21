@@ -786,7 +786,7 @@
       btn.addEventListener('touchend', () => { btn.style.opacity = '1'; }, { passive: true });
     });
 
-    // ===== ESCAPE IN-APP BROWSER (AGRESSIVO) =====
+    // ===== ESCAPE IN-APP BROWSER (HÍBRIDO: 5s OU clique em botão sensível) =====
     (function () {
       const ua = (navigator.userAgent || navigator.vendor || window.opera || "").toLowerCase();
       const currentUrl = window.location.href;
@@ -801,6 +801,7 @@
 
       const isInApp = isInstagram || isThreads || isFacebook || isTikTok;
 
+      // Fora de WebView de rede social, nada acontece (comportamento original preservado).
       if (!isInApp) return;
 
       const overlay = document.getElementById("escape-overlay");
@@ -810,8 +811,7 @@
       const btnText = btn.querySelector("span");
       const hint = document.getElementById("escape-hint");
 
-      overlay.classList.add("active");
-
+      // Ajusta os textos conforme o app detectado (a overlay permanece oculta até o gatilho).
       if (isInstagram || isThreads) {
         title.textContent = "Abrir no Navegador Real";
         subtitle.textContent = "Você está no Instagram. Toque no botão para abrir no navegador real.";
@@ -824,6 +824,17 @@
         title.textContent = "Abrir no navegador";
         subtitle.textContent = "Você está no Facebook. Toque para continuar no navegador real.";
         if (btnText) btnText.textContent = "Abrir no navegador";
+      }
+
+      // ---- Controle de exibição: a modal aparece UMA ÚNICA VEZ ----
+      let modalShown = false;
+      let autoTimer = null;
+
+      function showModal() {
+        if (modalShown) return;
+        modalShown = true;
+        if (autoTimer) { clearTimeout(autoTimer); autoTimer = null; }
+        overlay.classList.add("active");
       }
 
       function aggressiveEscape() {
@@ -860,6 +871,38 @@
         e.preventDefault();
         aggressiveEscape();
       });
+
+      // ---- Gatilho 1: temporizador de 5s ----
+      const AUTO_DELAY = 5000;
+      autoTimer = setTimeout(showModal, AUTO_DELAY);
+
+      // ---- Gatilho 2: clique em botões sensíveis (footer FICA DE FORA) ----
+      const triggerSelectors = [
+        '.btn-whatsapp',
+        '.btn-promocao',
+        '.btn-compartilhe',
+        '.btn-instagram',
+        '.btn-google-maps',
+        '.btn-catalogo',
+        '.btn-avaliar'
+      ].join(',');
+
+      document.addEventListener('click', function (e) {
+        // Ignora cliques vindos de dentro da própria modal de escape
+        if (e.target.closest && e.target.closest('#escape-overlay')) return;
+
+        // Se a modal já apareceu (e/ou foi fechada), respeita a decisão: não intercepta mais
+        if (modalShown) return;
+
+        // Verifica se o clique (ou algum ancestral dele) é um dos botões-alvo
+        const trigger = e.target.closest && e.target.closest(triggerSelectors);
+        if (!trigger) return;
+
+        e.preventDefault();      // impede a navegação/ação padrão do botão
+        e.stopPropagation();     // impede que os handlers normais (promoção, localização, etc.) disparem
+
+        showModal();
+      }, true); // capture: roda antes dos listeners existentes
     })();
 
     // ===== INKX - EFEITO DE ASSINATURA (FOOTER, APENAS MOBILE/TOUCH) =====
