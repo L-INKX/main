@@ -148,9 +148,9 @@
     100% { transform: rotateZ(-1deg) translateY(0); }
   }
   @keyframes cardFloat {
-    0% { transform: scale(0.8) translateY(0); }
-    50% { transform: scale(0.8) translateY(-5px); }
-    100% { transform: scale(0.8) translateY(0); }
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+    100% { transform: translateY(0); }
   }
 
   /* ===== Rosy Flip 3D ===== */
@@ -162,17 +162,17 @@
     .rosy-face-front, .rosy-face-back { position: absolute; inset: 0; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform-style: flat; -webkit-transform-style: flat; transform: translateZ(0.01px); -webkit-transform: translateZ(0.01px); display: flex; align-items: center; justify-content: center; }
     .rosy-face-back { display: flex; transform: rotateY(180deg) translateZ(0.01px); -webkit-transform: rotateY(180deg) translateZ(0.01px); }
     .rosy-face-front img { height: 100%; width: auto; max-width: 100%; object-fit: contain; }
-    .rosy-review-card { width: 100%; height: 100%; background: linear-gradient(160deg, #B02220 0%, #c92e2b 100%); border-radius: 24px; padding: 12px 14px 11px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.07) inset; display: flex; flex-direction: column; gap: 6px; color: #FAEEDE; overflow: hidden; transform: scale(0.8); transform-origin: center center; animation: cardFloat 4.8s ease-in-out infinite; }
-    .rosy-review-header { display: flex; align-items: center; gap: 8px; }
-    .rosy-review-card .rosy-review-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #FAEEDE; background: #FAEEDE; flex-shrink: 0; }
+    .rosy-review-card { width: 336px; height: 152px; max-width: 100%; max-height: 100%; background: linear-gradient(160deg, #B02220 0%, #c92e2b 100%); border-radius: 19px; padding: 9.5px 11px 9px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.07) inset; display: flex; flex-direction: column; gap: 5px; color: #FAEEDE; overflow: hidden; transform-origin: center center; animation: cardFloat 4.8s ease-in-out infinite; }
+    .rosy-review-header { display: flex; align-items: center; gap: 6px; }
+    .rosy-review-card .rosy-review-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid #FAEEDE; background: #FAEEDE; flex-shrink: 0; }
     .rosy-review-name-wrap { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-    .rosy-review-name { font-size: 17px; font-weight: 700; color: #FAEEDE; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .rosy-review-stars { font-size: 25px; letter-spacing: 2.5px; color: #FFD400; line-height: 1; }
-    .rosy-review-text { font-size: 15px; line-height: 1.35; color: #FAEEDE; opacity: 0.95; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
-    .rosy-review-footer { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 5px; border-top: 1px solid rgba(250, 238, 222, 0.2); }
-    .rosy-review-google { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; color: rgba(250, 238, 222, 0.85); letter-spacing: 0.2px; }
-    .rosy-review-google svg { width: 10px; height: 12px; }
-    .rosy-review-date { font-size: 11px; color: rgba(250, 238, 222, 0.65); white-space: nowrap; }
+    .rosy-review-name { font-size: 13.5px; font-weight: 700; color: #FAEEDE; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .rosy-review-stars { font-size: 20px; letter-spacing: 2px; color: #FFD400; line-height: 1; }
+    .rosy-review-text { font-size: 12px; line-height: 1.35; color: #FAEEDE; opacity: 0.95; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+    .rosy-review-footer { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 6px; padding-top: 4px; border-top: 1px solid rgba(250, 238, 222, 0.2); }
+    .rosy-review-google { display: flex; align-items: center; gap: 5px; font-size: 9px; font-weight: 600; color: rgba(250, 238, 222, 0.85); letter-spacing: 0.2px; }
+    .rosy-review-google svg { width: 8px; height: 10px; }
+    .rosy-review-date { font-size: 9px; color: rgba(250, 238, 222, 0.65); white-space: nowrap; }
   }
   @media (prefers-reduced-motion: reduce) {
     .rosy-flip-inner { transition: none !important; }
@@ -786,7 +786,7 @@
       btn.addEventListener('touchend', () => { btn.style.opacity = '1'; }, { passive: true });
     });
 
-    // ===== ESCAPE IN-APP BROWSER (AGRESSIVO) =====
+    // ===== ESCAPE IN-APP BROWSER (HÍBRIDO: 5s OU clique em botão sensível) =====
     (function () {
       const ua = (navigator.userAgent || navigator.vendor || window.opera || "").toLowerCase();
       const currentUrl = window.location.href;
@@ -801,6 +801,7 @@
 
       const isInApp = isInstagram || isThreads || isFacebook || isTikTok;
 
+      // Fora de WebView de rede social, nada acontece (comportamento original preservado).
       if (!isInApp) return;
 
       const overlay = document.getElementById("escape-overlay");
@@ -810,8 +811,7 @@
       const btnText = btn.querySelector("span");
       const hint = document.getElementById("escape-hint");
 
-      overlay.classList.add("active");
-
+      // Ajusta os textos conforme o app detectado (a overlay permanece oculta até o gatilho).
       if (isInstagram || isThreads) {
         title.textContent = "Abrir no Navegador Real";
         subtitle.textContent = "Você está no Instagram. Toque no botão para abrir no navegador real.";
@@ -824,6 +824,17 @@
         title.textContent = "Abrir no navegador";
         subtitle.textContent = "Você está no Facebook. Toque para continuar no navegador real.";
         if (btnText) btnText.textContent = "Abrir no navegador";
+      }
+
+      // ---- Controle de exibição: a modal aparece UMA ÚNICA VEZ ----
+      let modalShown = false;
+      let autoTimer = null;
+
+      function showModal() {
+        if (modalShown) return;
+        modalShown = true;
+        if (autoTimer) { clearTimeout(autoTimer); autoTimer = null; }
+        overlay.classList.add("active");
       }
 
       function aggressiveEscape() {
@@ -860,6 +871,38 @@
         e.preventDefault();
         aggressiveEscape();
       });
+
+      // ---- Gatilho 1: temporizador de 5s ----
+      const AUTO_DELAY = 5000;
+      autoTimer = setTimeout(showModal, AUTO_DELAY);
+
+      // ---- Gatilho 2: clique em botões sensíveis (footer FICA DE FORA) ----
+      const triggerSelectors = [
+        '.btn-whatsapp',
+        '.btn-promocao',
+        '.btn-compartilhe',
+        '.btn-instagram',
+        '.btn-google-maps',
+        '.btn-catalogo',
+        '.btn-avaliar'
+      ].join(',');
+
+      document.addEventListener('click', function (e) {
+        // Ignora cliques vindos de dentro da própria modal de escape
+        if (e.target.closest && e.target.closest('#escape-overlay')) return;
+
+        // Se a modal já apareceu (e/ou foi fechada), respeita a decisão: não intercepta mais
+        if (modalShown) return;
+
+        // Verifica se o clique (ou algum ancestral dele) é um dos botões-alvo
+        const trigger = e.target.closest && e.target.closest(triggerSelectors);
+        if (!trigger) return;
+
+        e.preventDefault();      // impede a navegação/ação padrão do botão
+        e.stopPropagation();     // impede que os handlers normais (promoção, localização, etc.) disparem
+
+        showModal();
+      }, true); // capture: roda antes dos listeners existentes
     })();
 
     // ===== INKX - EFEITO DE ASSINATURA (FOOTER, APENAS MOBILE/TOUCH) =====
@@ -891,8 +934,7 @@
       var isRunning = false;
 
       function effectAlreadyPlayed() {
-        return false; 
-		try { return localStorage.getItem(INKX_STORAGE_KEY) === '1'; }
+        try { return localStorage.getItem(INKX_STORAGE_KEY) === '1'; }
         catch (err) { return false; }
       }
 
@@ -914,7 +956,7 @@
         document.body.style.overflow = '';
       }
 
-           function removeOverlay(overlay) {
+      function removeOverlay(overlay) {
         if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
         unlockScroll();
       }
@@ -926,16 +968,6 @@
           if (existing) removeOverlay(existing);
         }
       });
-
-      function fadeIn(el) {
-        // Duas RAF garantem que o navegador registre a opacidade inicial (0)
-        // antes de aplicar o valor final, permitindo a transição do CSS.
-        requestAnimationFrame(function () {
-          requestAnimationFrame(function () {
-            el.style.opacity = el.dataset.targetOpacity;
-          });
-        });
-      }
 
       function fadeIn(el) {
         // Duas RAF garantem que o navegador registre a opacidade inicial (0)
