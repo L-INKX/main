@@ -934,8 +934,9 @@
       var isRunning = false;
 
       function effectAlreadyPlayed() {
-        try { return localStorage.getItem(INKX_STORAGE_KEY) === '1'; }
-        catch (err) { return false; }
+      // try { return localStorage.getItem(INKX_STORAGE_KEY) === '1'; }
+      // catch (err) { return false; }
+       return true; // desativa o efeito — para reativar, comente esta linha e descomente as duas acima
       }
 
       function markEffectAsPlayed() {
